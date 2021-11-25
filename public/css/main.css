@@ -1,0 +1,52 @@
+body {
+    background-color: var(--dark);
+    font-family: Roboto, "Open Sans", "Helvetica Neue", sans-serif;
+    color: var(--light);
+}
+.card {
+    color: var(--info);
+    background-color: var(--dark);
+    border: 1px solid var(--gray-dark);
+    border-left: 0px;
+    border-right: 0px;
+    border-radius: 0;
+}
+
+.card-title {
+    color: var(--white);
+    font-size: 1.5rem;
+}
+.card-text {
+    color: var(--secondary);
+}
+.navbar-toggler {
+    border: 0;
+}
+.form-control,
+textarea {
+    background-color: var(--gray-dark);
+    color: var(--white);
+}
+.form-control:focus,
+textarea:focus {
+    background-color: var(--gray-dark);
+    color: var(--white);
+    outline: none !important;
+    box-shadow: none;
+}
+hr {
+    background-color: var(--gray-dark);
+}
+
+pre {
+    /* font-family: "Open Sans", sans-serif; */
+    font-size: 1rem;
+    padding-bottom: 1rem;
+    line-height: 2;
+    letter-spacing: 0.8px;
+    color: var(--light);
+}
+.poem-title {
+    line-height: 2;
+    letter-spacing: 2px;
+}
