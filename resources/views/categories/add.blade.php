@@ -10,7 +10,7 @@
         @endforeach
     </div>
     @endif
-    <form action="{{url("/categories/add")}}" class="form mt-5" method="POST">
+    <form action="{{url("categories/add")}}" class="form mt-5" method="POST">
         @csrf
         <div class="form-group">
             <label for="name">New Category</label>
