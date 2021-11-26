@@ -66,6 +66,7 @@ class ArticleController extends Controller
         $validator = validator(request()->all(), [
             'title' => 'required',
             'body' => 'required',
+            'description' => 'required',
             'category_id' => 'required',
         ]);
         if ($validator->fails()) {
