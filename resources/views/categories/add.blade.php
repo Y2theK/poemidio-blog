@@ -10,14 +10,14 @@
         @endforeach
     </div>
     @endif
-    <form action="{{url("categories/add")}}" class="form mt-5" method="POST">
+    <form action="{{url("/categories/add")}}" class="mt-5" method="POST">
         @csrf
         <div class="form-group">
             <label for="name">New Category</label>
             <input type="text" name="name" class="form-control" placeholder="News Categories Here">
         </div>
         <input type="submit" value="Create" class="btn btn-primary float-right">
-        <input type="reset" value="Cancel" class="btn btn-outline-info float-right mr-2">
+        {{-- <input type="reset" value="Cancel" class="btn btn-outline-info float-right mr-2"> --}}
     </form>
 
 </div>
