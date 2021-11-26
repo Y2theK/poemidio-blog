@@ -46,12 +46,17 @@
                         </li>
                         @auth
                         <li class="nav-item">
+                            <a href="{{url('/articles?user')}}" class="nav-link text-info">@ Your Article</a>
+
+                        </li>
+                        <li class="nav-item">
                             <a href="{{url('/articles/add')}}" class="nav-link text-info">+ Add Article</a>
 
                         </li>
 
+
                         <li class="nav-item">
-                            <a href="{{url('/articles?user')}}" class="nav-link text-info">@ Your Article</a>
+                            <a href="{{url('/categories/add')}}" class="nav-link text-info">+ Add Categories</a>
 
                         </li>
                         @endauth

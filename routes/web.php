@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,8 @@ Route::get('/articles/edit/{id}', [ArticleController::class,'edit']);
 Route::post('/articles/edit/{id}', [ArticleController::class,'update']);
 Route::post('/comments/add', [CommentController::class,'create']);
 Route::get('/comments/delete/{id}', [CommentController::class,'delete']);
+Route::get('/categories/add', [CategoryController::class,'add']);
+Route::post('/categories/add', [CategoryController::class,'create']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\ArticleController::class, 'home'])->name('home');
