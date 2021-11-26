@@ -10,7 +10,7 @@
         @endforeach
     </div>
     @endif
-    <form action="" class="form" method="POST">
+    <form action="{{url("/articles/add")}}" class="form" method="POST">
         @csrf
         <div class="form-group">
             <label for="title">Title</label>
@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
             <label for="body">Body</label>
-            <textarea name="body" id="body" cols="30" rows="8" class="form-control"
+            <textarea name="body" id="body" cols="30" rows="10" class="form-control"
                 placeholder="Your Content Here"></textarea>
         </div>
         <div class="form-group">
