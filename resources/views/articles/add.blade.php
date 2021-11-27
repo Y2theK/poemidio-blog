@@ -10,32 +10,36 @@
         @endforeach
     </div>
     @endif
-    <form action="{{route('articles.create')}}" class="form" method="POST">
+    <form action="{{url("/articles/create")}}" class="form" method="POST">
         @csrf
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" name="title" class="form-control" placeholder="Your Title Here">
+            <input type="text" name="title" class="form-control" placeholder="Poem Title">
         </div>
         <div class="form-group">
             <label for="description">Description</label>
             <textarea name="description" id="description" cols="30" rows="4" class="form-control"
-                placeholder="Your Preview / description Here"></textarea>
+                placeholder="Poem's Short Preview"></textarea>
         </div>
         <div class="form-group">
             <label for="body">Body</label>
-            <textarea name="body" id="body" cols="30" rows="10" class="form-control"
-                placeholder="Your Content Here"></textarea>
+            <textarea name="body" id="body" cols="30" rows="8" class="form-control" placeholder="Poem Body"></textarea>
         </div>
         <div class="form-group">
             <label for="category">Category</label>
             <select name="category_id" id="category" class="form-control">
                 @foreach ($categories as $category)
-                <option value="{{$category['id']}}">{{$category['name']}}</option>
+
+                <option value="{{$category->id}}">{{$category->name}}</option>
+
+
                 @endforeach
+
+
+
             </select>
         </div>
-        <input type="submit" value="Add Article" class="btn btn-primary float-right">
-        <input type="reset" value="Cancel" class="btn btn-outline-info float-right mr-2">
+        <input type="submit" value="Create Article" class="btn btn-warning float-right">
     </form>
 
 </div>
