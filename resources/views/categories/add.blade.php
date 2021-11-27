@@ -10,7 +10,7 @@
         @endforeach
     </div>
     @endif
-    <form action="" class="mt-5" method="POST">
+    <form action="/articles/add" class="mt-5" method="POST">
         @csrf
         <div class="form-group">
             <label for="name">New Category</label>
