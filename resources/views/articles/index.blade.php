@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section('content')
-<div class="container-fluid">
+<div class="container">
     <div class="h4">All Poems {{$name}}</div>
     @if (session('info'))
     <div class="alert alert-info">{{session('info')}}</div>

@@ -16,7 +16,7 @@
             <label for="name">New Category</label>
             <input type="text" name="name" class="form-control" placeholder="New Category Here">
         </div>
-        <input type="submit" value="Create" class="btn btn-primary float-right">
+        <input type="submit" value="Create" class="btn btn-warning float-right">
         {{-- <input type="reset" value="Cancel" class="btn btn-outline-info float-right mr-2"> --}}
     </form>
 

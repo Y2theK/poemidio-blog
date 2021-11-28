@@ -104,8 +104,10 @@
 
         <main class="py-4">
             @yield('content')
-            <div class="col-lg-6 my-3 mb-3">
-                <a class="btn btn-dark " onclick="goBack()">BACK</a>
+            <div class="container">
+                <div class="my-3 mb-3">
+                    <a class="btn btn-dark " onclick="goBack()">BACK</a>
+                </div>
             </div>
 
         </main>
