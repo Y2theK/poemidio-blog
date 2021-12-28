@@ -25,9 +25,9 @@
         </p>
         @if (Gate::allows('edit-delete-post',$article))
         <div class="p-2">
-            <a href="{{url("/articles/delete/$article->id")}}" class="btn btn-outline-light float-right
+            <a href="{{route('articles.delete',$article->id)}}" onclick="confirm('Are you sure to delete..?');" class="btn btn-outline-light float-right
                 ">Delete</a>
-            <a href="{{url("/articles/edit/$article->id")}}" class="btn btn-primary float-right mr-2">Edit</a>
+            <a href="{{route('articles.edit',$article->id)}}" class="btn btn-primary float-right mr-2">Edit</a>
 
 
         </div>
@@ -35,15 +35,17 @@
         @endif
         <hr>
         @auth
-        <ul class="list-group my-2 bg-dark">
+        <ul class="list-group my-2 bg-dark" id="comments-section">
 
 
-            <form action="{{url("/comments/add")}}" method="POST">
+            <form action="{{route('comments.create')}}" method="POST">
                 @csrf
                 <input type="hidden" class="form-control" name="article_id" value="{{$article->id}}">
                 <div class="mb-3">
                     <textarea name="content" id="content" cols="30" rows="3" placeholder="Add New Comment"
                         class="form-control "></textarea>
+                    <p class="text-danger">{{$errors->first()}}</p>
+
                     <input type="submit" class="btn btn-info float-right my-2">
                 </div>
 
@@ -54,7 +56,10 @@
             <div class="alert alert-danger">{{session('error')}}</div>
             @endif
 
-            <li class="list-group-item bg-dark text-info"><b> {{count($article->comments)}} Comments </b></li>
+            <li class="list-group-item bg-dark text-info d-flex justify-content-between"><b>
+                    {{count($article->comments)}} Comments </b><b>
+                    {{rand(1,100)}} <i class="fa fa-heart text-danger"></i> </b></li>
+
             @foreach ($article->comments as $comment)
 
             <li class="list-group-item bg-dark">
@@ -63,8 +68,7 @@
                     <span class="text-primary mr-2"> {{$comment->user->name}} </span> <span class="card-text flex-fill">
                         {{$comment->content}}</span>
                     @if (Gate::allows('comment-delete',$comment))
-                    <a href="{{url("/comments/delete/$comment->id")}}"
-                        class="close text-warning" >&times</a>
+                    <a href="{{route('comments.delete',$comment->id)}}" class="close text-warning">&times</a>
                     @endif
 
 

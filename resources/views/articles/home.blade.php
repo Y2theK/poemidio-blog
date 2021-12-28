@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row justify-content-center">
 
-        <div class="col-md-8">
+        <div class="col-12">
             <div class="card mb-3">
                 <div class="card-header h4">{{ __('Welcome From My First Laravel Blog') }}</div>
 
@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-11 ">
             <h4>Read Me</h4>
             <p class="text-muted">Welcome to my first ever small laravel blog app. Since I am new to laravel, if I do
                 wrong, Feel
@@ -57,4 +57,5 @@
 
 
     </div>
-    @endsection
+</div>
+@endsection

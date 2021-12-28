@@ -16,6 +16,13 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    {{-- font awesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"
+        integrity="sha512-fzff82+8pzHnwA1mQ0dzz9/E0B+ZRizq08yZfya66INZBz86qKTCt9MLU0NCNIgaMJCgeyhujhasnFUsYMsi0Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -30,11 +37,34 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                @auth
+
+                <ul class=" ml-auto my-auto" id="logOutDropDown">
+                    <li class="dropdown ">
+                        <a id="navbarDropdown" class=" dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }}
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right  " aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item " href="{{ route('logout') }}" onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+                @endauth
+
+                {{-- <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                </button> --}}
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -56,7 +86,7 @@
 
 
                         <li class="nav-item">
-                            <a href="{{url('/categories/add')}}" class="nav-link text-info">+ Add Categories</a>
+                            <a href="{{url('/categories')}}" class="nav-link text-info">& Categories</a>
 
                         </li>
                         @endauth
@@ -102,18 +132,81 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4" style="margin-bottom: 80px">
             @yield('content')
             <div class="container">
                 <div class="my-3 mb-3">
                     <a class="btn btn-dark " onclick="goBack()">BACK</a>
+                    {{-- {{ Request::segment(1)." /".Request::FullUrl(3)}} --}}
+                    <?php
+                        // $posts = Http::get('https://jsonplaceholder.typicode.com/posts/');
+                        // dd($posts->json());
+                    ?>
                 </div>
+
             </div>
 
-        </main>
-        <footer>
+            <div class="navigation">
 
-        </footer>
+                <ul class="navi" id="mobile-nav">
+
+                    <li class="nav-items"><a href="{{url('/articles')}}" class="nav-link">
+                            <div class="icon-text   {{Request::segment(1)." /".Request::segment(2)=='articles /'
+                                ? 'active' : '' }}">
+                                <p> <i class="fa fa-house"></i></p>
+                                <p>Home</p>
+                            </div>
+
+                        </a></li>
+                    @guest
+
+                    <li class="nav-items"><a href="{{url('/login')}}" class="nav-link">
+                            <div class="icon-text {{Request::segment(1) == 'login' ? 'active' : ''}}">
+                                <p> <i class="fa fa-plus"></i></p>
+                                <p>Login</p>
+                            </div>
+                        </a></li>
+                    <li class="nav-items"><a href="{{url('/register')}}" class="nav-link">
+                            <div class="icon-text  {{Request::segment(1) == 'register' ? 'active' : ''}}">
+                                <p><i class="fa fa-circle-plus"></i></p>
+
+                                <p>Register</p>
+                            </div>
+                        </a></li>
+                    @endguest
+
+
+                    @auth
+
+                    <li class="nav-items"><a href="{{url('/articles/add')}}" class="nav-link">
+                            <div class="icon-text {{Request::segment(1)." /".Request::segment(2)=='articles /add'
+                                ? 'active' : '' }}">
+                                <p> <i class="fa fa-circle-plus"></i></p>
+                                <p> Posts</p>
+                            </div>
+                        </a></li>
+                    <li class="nav-items"><a href="{{url('/categories')}}" class="nav-link">
+                            <div class="icon-text   {{Request::segment(1) == 'categories' ? 'active' : ''}}">
+                                <p> <i class="fa fa-list"></i></p>
+                                <p>Categories</p>
+                            </div>
+                        </a></li>
+                    <li class="nav-items"><a href="{{url('/articles?user')}}" class="nav-link">
+                            <div
+                                class="icon-text  {{Request::fullUrl() == 'http://127.0.0.1:8000/articles?user=' ? 'active' : ''}}">
+                                <p> <i class="fa fa-user"></i></p>
+                                <p>Profile</p>
+                            </div>
+                        </a></li>
+            </div>
+            @endauth
+
+    </div>
+
+    </main>
+    <footer>
+
+    </footer>
     </div>
 </body>
 

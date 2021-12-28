@@ -12,22 +12,37 @@
 
                 <span class=""> Category : <span
                         class="badge badge-warning rounded-pill">{{$article->category->name}}</span></span>
-                <span class="ml-2">Posted By : <span
+                <span class="ml-2"> From : <span
                         class="badge badge-warning rounded-pill">{{$article->user->name}}</span></span>
         </div>
         <div class=" my-2 "><span class="text-muted small">{{$article->created_at->diffForHumans()}}</span>
         </div>
+        {{-- <div class="row"> --}}
+            <div class="col-md-6 card-image my-3 p-0">
+                {{-- <img src="/images/bg.jpg" alt="" width="100%"> --}}
+            </div>
 
-        <p class="card-text">
-        <p class="text-light h5 poem-title">"{{$article->title}}"</p><br>
+            <div class="">
+                <p class="text-light h5 poem-title">"{{$article->title}}"</p><br>
 
-        <pre>{{$article->description}}</pre>
+                <pre>{{$article->description}}</pre>
 
-        <div class="mb-2">
-            <a href="{{url("/articles/detail/$article->id")}}" class="card-link
-                ">READ MORE
-                &raquo;</a>
-        </div>
+                <div class="mb-2 d-flex article-footer">
+                    <a href="{{route('articles.detail',$article->id)}}" class="card-link
+                    ">READ MORE
+                        &raquo;</a>
+                    <div class="like-comment-count">
+
+                        <a href="{{route('articles.detail',$article->id)}}" class="card-link">{{rand(1,100)}} <i
+                                class="fa fa-heart"></i></a>
+
+                        <a href="/articles/detail/{{$article->id}}" class="card-link">{{count($article->comments)}}
+                            <i class="fa fa-comment"></i></a>
+                    </div>
+                </div>
+            </div>
+            {{--
+        </div> --}}
 
     </div>
     @endforeach

@@ -15,6 +15,18 @@ class CommentController extends Controller
     }
     public function create()
     {
+        $validator = validator(
+            request()->all(),
+            [
+                'content' => "required|max:255"
+            ],
+            [
+                'content.required' => "Ooops! Something wrong. Try agrain later..."   //custome message
+            ]
+        );
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
         $comment = new Comment;
         $comment->content = request()->content;
         $comment->article_id = request()->article_id;

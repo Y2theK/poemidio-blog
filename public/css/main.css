@@ -1,4 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+li {
+    text-decoration: none;
+}
 body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     background-color: var(--dark);
     font-family: Roboto, "Open Sans", "Helvetica Neue", sans-serif;
     color: var(--light);
@@ -49,4 +60,86 @@ pre {
 .poem-title {
     line-height: 2;
     letter-spacing: 2px;
+}
+.navigation {
+    display: none;
+
+    height: 70px;
+    width: 100%;
+    position: fixed;
+
+    bottom: 0px;
+    left: 0px;
+    z-index: 1000;
+    background-color: var(--dark);
+    box-shadow: 0px 0px 8px 10px rgba(0, 0, 0, 0.5);
+    border-top: 1px solid var(--info);
+}
+#logOutDropDown {
+    display: none;
+    list-style: none;
+}
+#logOutDropDown li a#navbarDropdown {
+    color: var(--secondary);
+    text-decoration: none;
+}
+#logOutDropDown li a#navbarDropdown:hover {
+    color: var(--white);
+}
+
+/* like and comment count block div */
+div.like-comment-count {
+    margin-left: 150px;
+}
+@media (max-width: 768px) {
+    /* logout dropdown button */
+    #logOutDropDown {
+        display: inline-block;
+    }
+
+    /* mobile navigation */
+    .navigation {
+        display: block;
+    }
+    .navi {
+        height: inherit;
+        margin: 0;
+        padding: 0;
+
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .navi li {
+        list-style: none;
+    }
+    .navi li a {
+        display: block;
+    }
+    .navi .icon-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        color: var(--info);
+    }
+    .icon-text p {
+        margin: 0;
+    }
+    .icon-text.active {
+        color: var(--white) !important;
+    }
+    .nav-items.active {
+        color: var(--white) !important;
+    }
+    .icon-text:hover {
+        color: var(--white);
+    }
+    /* like and comment count block div */
+    div.article-footer {
+        justify-content: space-between;
+    }
+    div.like-comment-count {
+        margin-left: 0;
+    }
 }

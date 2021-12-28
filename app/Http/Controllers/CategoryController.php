@@ -11,9 +11,10 @@ class CategoryController extends Controller
     {
         $this->middleware('auth');
     }
-    public function add()
+    public function index()
     {
-        return view('categories.add');
+        $categories = Category::latest()->get();
+        return view('categories.index', compact('categories'));
     }
     public function create()
     {
@@ -26,8 +27,14 @@ class CategoryController extends Controller
         }
         $category = new Category();
         $category->name = request()->name;
+        $category->user_id = auth()->id();
        
         $category->save();
+        return back();
+    }
+    public function delete(Category $category)
+    {
+        $category->delete();
         return back();
     }
 }
