@@ -58,7 +58,9 @@
 
             <li class="list-group-item bg-dark text-info d-flex justify-content-between"><b>
                     {{count($article->comments)}} Comments </b><b>
-                    {{rand(1,100)}} <i class="fa fa-heart text-danger"></i> </b></li>
+                    {{-- soon i will change this view icon to like icon so that we can give like to our post --}}
+
+                    {{rand(1,100)}} <i class="fa fa-eye"></i> </b></li>
 
             @foreach ($article->comments as $comment)
 

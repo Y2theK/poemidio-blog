@@ -11,7 +11,7 @@
             @endforeach
         </div>
         @endif
-        <form action="{{route('categories.create')}}" class="mt-5" method="POST">
+        {{-- <form action="{{route('categories.create')}}" class="mt-5" method="POST">
             @csrf
             <div class="form-group">
                 <label for="name">New Category</label>
@@ -19,7 +19,7 @@
             </div>
             <input type="submit" value="Create" class="btn btn-warning float-right mb-3">
 
-        </form>
+        </form> --}}
         <li class="list-group-item bg-dark text-info"><b> {{count($categories)}} categories </b></li>
         @foreach ($categories as $category)
 

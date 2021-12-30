@@ -150,27 +150,30 @@
 
                 <ul class="navi" id="mobile-nav">
 
+
+                    @guest
+                    <li class="nav-items"><a href="{{url('/register')}}" class="nav-link">
+                            <div class="icon-text  {{Request::segment(1) == 'register' ? 'active' : ''}}">
+                                <p><i class="fa fa-arrow-up-from-bracket"></i></p>
+
+                                <p>Register</p>
+                            </div>
+                        </a></li>
+
+                    @endguest
                     <li class="nav-items"><a href="{{url('/articles')}}" class="nav-link">
-                            <div class="icon-text   {{Request::segment(1)." /".Request::segment(2)=='articles /'
-                                ? 'active' : '' }}">
+                            <div
+                                class="icon-text   {{Request::fullUrl() == 'http://127.0.0.1:8000/articles' ? 'active' : ''}}">
                                 <p> <i class="fa fa-house"></i></p>
                                 <p>Home</p>
                             </div>
 
                         </a></li>
                     @guest
-
                     <li class="nav-items"><a href="{{url('/login')}}" class="nav-link">
                             <div class="icon-text {{Request::segment(1) == 'login' ? 'active' : ''}}">
-                                <p> <i class="fa fa-plus"></i></p>
+                                <p> <i class="fa fa-sign-in-alt"></i></p>
                                 <p>Login</p>
-                            </div>
-                        </a></li>
-                    <li class="nav-items"><a href="{{url('/register')}}" class="nav-link">
-                            <div class="icon-text  {{Request::segment(1) == 'register' ? 'active' : ''}}">
-                                <p><i class="fa fa-circle-plus"></i></p>
-
-                                <p>Register</p>
                             </div>
                         </a></li>
                     @endguest
