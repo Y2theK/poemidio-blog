@@ -34,7 +34,7 @@
                     &raquo;</a>
                 <div class="like-comment-count">
                     {{-- soon i will change this view icon to like icon so that we can give like to our post --}}
-                    <a class="card-link">&#x1F440;{{rand(1,100)}}</a>
+                    <a class="card-link">&#x1F440; {{rand(1,100)}}</a>
 
                     <a href="{{route('articles.detail',$article->id)}}" class="card-link">{{count($article->comments)}}
                         <i class="fa fa-comment"></i></a>

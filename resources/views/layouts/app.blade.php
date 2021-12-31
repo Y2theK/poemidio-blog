@@ -137,7 +137,7 @@
             <div class="container">
                 <div class="my-3 mb-3">
                     <a class="btn btn-dark " onclick="goBack()">BACK</a>
-                    {{-- {{ Request::segment(1)." /".Request::FullUrl(3)}} --}}
+                    {{-- {{Request::segment(1)}} --}}
                     <?php
                         // $posts = Http::get('https://jsonplaceholder.typicode.com/posts/');
                         // dd($posts->json());
@@ -163,7 +163,7 @@
                     @endguest
                     <li class="nav-items"><a href="{{url('/articles')}}" class="nav-link">
                             <div
-                                class="icon-text   {{Request::fullUrl() == 'http://127.0.0.1:8000/articles' ? 'active' : ''}}">
+                                class="icon-text   {{Request::fullUrl() == 'http://testlara.herokuapp.com/articles' ? 'active' : ''}}">
                                 <p> <i class="fa fa-house"></i></p>
                                 <p>Home</p>
                             </div>
@@ -196,7 +196,7 @@
                         </a></li>
                     <li class="nav-items"><a href="{{url('/articles?user')}}" class="nav-link">
                             <div
-                                class="icon-text  {{Request::fullUrl() == 'http://127.0.0.1:8000/articles?user=' ? 'active' : ''}}">
+                                class="icon-text  {{Request::fullUrl() == 'http://testlara.herokuapp.com/articles?user=' ? 'active' : ''}}">
                                 <p> <i class="fa fa-user"></i></p>
                                 <p>Profile</p>
                             </div>

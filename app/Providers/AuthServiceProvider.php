@@ -32,7 +32,7 @@ class AuthServiceProvider extends ServiceProvider
             return $user->id == $category->user_id;
         });
 
-        Gate::define('edit-delete', function ($user, $article) {
+        Gate::define('edit-delete-post', function ($user, $article) {
             return $user->id == $article->user_id;
         });
     }

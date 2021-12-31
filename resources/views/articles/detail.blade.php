@@ -57,10 +57,10 @@
             @endif
 
             <li class="list-group-item bg-dark text-info d-flex justify-content-between"><b>
-                    {{count($article->comments)}} Comments </b><b>
-                    {{-- soon i will change this view icon to like icon so that we can give like to our post --}}
+                    {{count($article->comments)}} Comments </b>
+                {{-- soon i will change this view icon to like icon so that we can give like to our post --}}
 
-                    {{rand(1,100)}} <i class="fa fa-eye"></i> </b></li>
+                {{rand(1,100)}} &#x1F440; </li>
 
             @foreach ($article->comments as $comment)
 

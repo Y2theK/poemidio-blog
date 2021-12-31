@@ -64,7 +64,7 @@ pre {
 .navigation {
     display: none;
 
-    height: 70px;
+    height: 60px;
     width: 100%;
     position: fixed;
 
@@ -74,6 +74,8 @@ pre {
     background-color: var(--dark);
     box-shadow: 0px 0px 8px 10px rgba(0, 0, 0, 0.5);
     border-top: 1px solid var(--info);
+
+    font-size: 12px;
 }
 #logOutDropDown {
     display: none;
