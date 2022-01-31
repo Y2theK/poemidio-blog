@@ -27,7 +27,8 @@ class ArticleCreateRequest extends FormRequest
             'title' => 'max:255|required',
             'body' => 'required',
             'description' => 'max:255|required',
-            'category_id' => 'required',
+            'category_id' => 'required|integer',
+            
         ];
     }
 }

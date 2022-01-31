@@ -7,6 +7,7 @@
     <form action="{{route('articles.create')}}" class="form" method="POST">
         @csrf
         <div class="form-group">
+
             <label for="title">Title</label>
             <input type="text" name="title" class="form-control" placeholder="Poem Title">
             @error('title')

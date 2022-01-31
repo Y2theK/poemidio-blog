@@ -3,45 +3,30 @@
 namespace App\Http\Controllers;
 
  use App\Models\Comment;
-use Illuminate\Auth\Access\Gate;
+use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Access\Gate;
+use App\Http\Requests\CommentCreateRequest;
 use Illuminate\Support\Facades\Gate as FacadesGate;
 
 class CommentController extends Controller
 {
-    public function __construct()
+    public function create(CommentCreateRequest $request)
     {
-        $this->middleware('auth');
-    }
-    public function create()
-    {
-        $validator = validator(
-            request()->all(),
-            [
-                'content' => "required|max:255"
-            ],
-            [
-                'content.required' => "Ooops! Something wrong. Try agrain later..."   //custome message
-            ]
-        );
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
         $comment = new Comment;
-        $comment->content = request()->content;
-        $comment->article_id = request()->article_id;
-        $comment->user_id = auth()->user()->id;
-        $comment->save();
-        return back();
+        $comment::create(
+            $request->validated() + ['user_id' => auth()->id()]
+        );
+        return redirect()->route('articles.detail', request()->article_id)->with('info', 'Comment Created Successfully..!');
     }
     public function delete($id)
     {
         $comment = Comment::find($id);
         
         if (FacadesGate::denies('comment-delete', $comment)) {
-            return back()->with('error', 'Unauthorized Attempt');
+            abort('403', 'Unauthorized');
         }
         $comment->delete();
-        return back();
+        return redirect()->route('articles.detail', $article->id)->with('info', 'Comment Deleted Successfully..!');
     }
 }

@@ -8,6 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use HasFactory;
+    
+    protected $fillable = [
+        'title',
+        'body',
+        'description',
+        'category_id',
+        'user_id'
+    ];
     public function category()
     {
         return $this->belongsTo('App\Models\Category');
@@ -23,5 +31,14 @@ class Article extends Model
     public function user()
     {
         return $this->belongsTo('\App\Models\User');
+    }
+    protected static function boot()
+    {
+        parent::boot();
+        if (auth()->check()) {
+            self::creating(function ($model) {
+                $model->user_id = auth()->id();
+            });
+        }
     }
 }

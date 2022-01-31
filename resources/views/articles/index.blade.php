@@ -5,13 +5,15 @@
     @if (session('info'))
     <div class="alert alert-info">{{session('info')}}</div>
     @endif
+
     @foreach ($articles as $article)
+
     <div class="card px-2">
         <div class="card-bodyfitter mt-3">
             <h6 class="card-title poem-title">{{$article->title}}</h5>
 
-                <span class=""> Category : <span
-                        class="badge badge-warning rounded-pill">{{$article->category->name}}</span></span>
+                <span class=""> Category : <span class="badge badge-warning rounded-pill">{{$article->category->name
+                        }}</span></span>
                 <span class="ml-2"> From : <span
                         class="badge badge-warning rounded-pill">{{$article->user->name}}</span></span>
         </div>

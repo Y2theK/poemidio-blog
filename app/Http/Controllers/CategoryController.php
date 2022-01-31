@@ -4,37 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\CategoryCreateRequest;
 
 class CategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     public function index()
     {
         $categories = Category::latest()->get();
         return view('categories.index', compact('categories'));
     }
-    public function create()
+    public function create(CategoryCreateRequest $request)
     {
-        $validator = validator(request()->all(), [
-            'name' => 'required',
-            
-        ]);
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
         $category = new Category();
-        $category->name = request()->name;
-        $category->user_id = auth()->id();
-       
-        $category->save();
-        return back();
+        $category->create($request->validated() + ['user_id' => auth()->id()]);
+        return redirect()->route('categories.index')->with('info', 'Category Created Successfully..!');
     }
     public function delete(Category $category)
     {
+        if (Gate::denies('category-delete', $category)) {
+            abort('403', 'Unauthorized');
+        }
         $category->delete();
-        return back();
+        return redirect()->route('categories.index')->with('info', 'Category Deleted Successfully..!');
     }
 }
