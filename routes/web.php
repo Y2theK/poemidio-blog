@@ -44,3 +44,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('delete/{category}', [CategoryController::class,'delete'])->name('delete');
     });
 });
+
+//admin routes
+Route::view('admin/', 'admins.dashboard');
