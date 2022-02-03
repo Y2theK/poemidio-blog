@@ -1,4 +1,4 @@
-@extends('layouts.master');
+@extends('layouts.master')
 @section('breadcumb')
 <div class="container-fluid">
     <div class="row mb-2">

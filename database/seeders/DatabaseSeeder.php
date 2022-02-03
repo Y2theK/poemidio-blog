@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Database\Seeders\AdminUserSeeder;
+use Database\Seeders\PermissionTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,9 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //\App\Models\Category::factory(0)->create();
         \App\Models\Article::factory(20)->create();
         \App\Models\Comment::factory(40)->create();
+
+        //seeding users
         \App\Models\User::factory()->create([
             'name' => "Y2theK",
             'email' => "y2k@gmail.com"
@@ -24,24 +27,20 @@ class DatabaseSeeder extends Seeder
             'name' => "admin",
             'email' => "admin@gmail.com"
         ]);
-        \App\Models\Category::factory()->create([
-            'name' => "Modern",
+
+        //seeding category
+        $categories = ['Modern','Other','Haiku','Limerick','Sonnet'];
+        foreach ($categories as $category) {
+            \App\Models\Category::factory()->create([
+            'name' => $category,
             
         ]);
-        \App\Models\Category::factory()->create([
-            'name' => 'other'
-        ]);
-        \App\Models\Category::factory()->create([
-            'name' => "Sonnet",
-            
-        ]);
-        \App\Models\Category::factory()->create([
-            'name' => "Haiku",
-            
-        ]);
-        \App\Models\Category::factory()->create([
-            'name' => "Limerick",
-            
+        }
+
+        //seeding PermissionTableSeeder and AdminUserSeeder
+        $this->call([
+            PermissionTableSeeder::class,
+            AdminUserSeeder::class
         ]);
     }
 }

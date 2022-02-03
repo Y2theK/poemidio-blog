@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,4 +48,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 //admin routes
-Route::view('admin/', 'admins.dashboard');
+Route::middleware('role:Admin|Super-Admin', 'auth')->prefix('admin/')->as('admin.')->group(function () {
+    Route::view('/', 'admin/dashboard')->name('dashboard');
+    Route::resource('/roles', RoleController::class);
+    Route::resource('/users', UserController::class);
+    Route::resource('/articles', AdminArticleController::class);
+    // Route::get('/roles', [RoleController::class,'index'])->name('roles.index');
+});

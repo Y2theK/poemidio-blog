@@ -14,9 +14,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    @yield('styles')
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -32,6 +33,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <li class="nav-item text-center">
                     <a class="nav-link" href="#">POEMDIO DASHBOARD</a>
+                </li>
+
+                <li class="nav-item text-center">
+                    <a class="nav-link" href="/">POEMDIO APP</a>
                 </li>
 
             </ul>
@@ -75,9 +80,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                    style="opacity: .8">
+            <a href="/" class="brand-link">
+                <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+                    class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">POEMIDIO</span>
             </a>
 
@@ -86,10 +91,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                            alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block">{{ auth()->check() ? auth()->user()->name : '' }}</a>
                     </div>
                 </div>
 
@@ -104,34 +110,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li class="nav-item menu-open">
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link active">
-
+                                    <a href="{{ route('admin.dashboard') }}" class="nav-link">
+                                        <i class="fa fa-palette nav-icon"></i>
                                         <p>Dashboard</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
-
+                                    <a href="{{ route('admin.articles.index') }}" class="nav-link">
+                                        <i class="fa fa-book nav-icon"></i>
                                         <p>Articles Management</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-
+                                        <i class="fa fa-list nav-icon"></i>
                                         <p>Categories Management</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
-
+                                    <a href="{{ route('admin.users.index') }}" class="nav-link">
+                                        <i class="fa fa-users nav-icon"></i>
                                         <p>Users Management </p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link ">
-
-                                        <p>Log out </p>
+                                    <a href="{{ route('admin.roles.index') }}" class="nav-link">
+                                        <i class="fa fa-magic nav-icon"></i>
+                                        <p>Roles Management </p>
                                     </a>
+                                </li>
+                                <li class="nav-item">
+
+                                    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                        <i class="fa fa-sign-out-alt nav-icon"></i>
+                                        <p>Logout</p>
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+
                                 </li>
 
                             </ul>
@@ -176,11 +195,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- REQUIRED SCRIPTS -->
 
     <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.min.js"></script>
+    <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+
+    @yield('scripts')
 </body>
 
 </html>

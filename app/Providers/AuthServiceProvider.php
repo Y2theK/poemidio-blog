@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
+    use HasRoles;
     /**
      * The policy mappings for the application.
      *
@@ -24,7 +26,9 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('Super-Admin') ? true : null;
+        });
         Gate::define('comment-delete', function ($user, $comment) {
             return $user->id == $comment->user_id;
         });

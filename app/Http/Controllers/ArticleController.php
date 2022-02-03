@@ -12,10 +12,6 @@ use Illuminate\Support\Facades\Gate as FacadesGate;
 
 class ArticleController extends Controller
 {
-    public function __construct()
-    {
-    }
-   
     public function index()
     {
         if (request()->has('user')) {
