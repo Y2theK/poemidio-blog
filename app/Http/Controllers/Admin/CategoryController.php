@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        if (auth()->user()->cannot('category-list')) {
+            abort(403, 'u do not have access');
+        }
+        $categories = Category::latest()->get();
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -24,7 +29,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        if (auth()->user()->cannot('category-list')) {
+            abort(403, 'u do not have access');
+        }
+        return abort(403, 'Working in Progress');
     }
 
     /**
@@ -35,7 +43,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (auth()->user()->cannot('category-list')) {
+            abort(403, 'u do not have access');
+        }
+        return abort(403, 'Working in Progress');
     }
 
     /**
@@ -46,7 +57,10 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        if (auth()->user()->cannot('category-list')) {
+            abort(403, 'u do not have access');
+        }
+        return abort(403, 'Working in Progress');
     }
 
     /**
@@ -57,7 +71,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (auth()->user()->cannot('category-edit')) {
+            abort(403, 'u do not have access');
+        }
+        return abort(403, 'Working in Progress');
     }
 
     /**
@@ -69,7 +86,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (auth()->user()->cannot('category-edit')) {
+            abort(403, 'u do not have access');
+        }
+        return abort(403, 'Working in Progress');
     }
 
     /**
@@ -78,8 +98,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        if (auth()->user()->cannot('category-delete')) {
+            abort(403, 'u do not have access');
+        }
+        $category->destroy($category->id);
+        return redirect()->route('admin.categories.index')->with('info', 'Category Deleted Successfully');
     }
 }

@@ -16,6 +16,9 @@ class CategoryController extends Controller
     }
     public function create(CategoryCreateRequest $request)
     {
+        if (auth()->user()->cannot('category-create')) {
+            abort(403, 'Access Denied');
+        }
         $category = new Category();
         $category->create($request->validated() + ['user_id' => auth()->id()]);
         return redirect()->route('categories.index')->with('info', 'Category Created Successfully..!');

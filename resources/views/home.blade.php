@@ -16,7 +16,8 @@
                     </div>
                     @endif
 
-                    <a href="{{url("/articles")}}">Click Here To Join Our Little Community.</a>
+                    <a href="{{route('articles.index')}}">Click Here To Join Our Little Community.</a>
+
                 </div>
             </div>
         </div>

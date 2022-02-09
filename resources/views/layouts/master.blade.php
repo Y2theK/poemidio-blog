@@ -78,7 +78,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background: #1A202C">
             <!-- Brand Logo -->
             <a href="/" class="brand-link">
                 <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
@@ -122,7 +122,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('admin.categories.index') }}" class="nav-link">
                                         <i class="fa fa-list nav-icon"></i>
                                         <p>Categories Management</p>
                                     </a>
@@ -180,7 +180,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- /.content-wrapper -->
 
         <!-- Main Footer -->
-        <footer class="main-footer">
+        <footer class="main-footer bg-dark" style="background: #1A202C">
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline">
                 Anything you want

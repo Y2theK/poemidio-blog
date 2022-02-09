@@ -4,8 +4,8 @@
     <div class="row mb-2">
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-left">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Starter Page</li>
+                <li class="breadcrumb-item"><a href="#">Poemidio</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -13,67 +13,67 @@
 @endsection
 @section('content')
 <div class="container-fluid">
+    <!-- Info boxes -->
     <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-info elevation-1"><i class="fa fa-book-medical"></i></span>
 
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.
-                    </p>
-
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                <div class="info-box-content">
+                    <span class="info-box-text">Articles</span>
+                    <span class="info-box-number">
+                        {{ $articleCount }}
+                        <small>s</small>
+                    </span>
                 </div>
+                <!-- /.info-box-content -->
             </div>
-
-            <div class="card card-primary card-outline">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.
-                    </p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div><!-- /.card -->
+            <!-- /.info-box -->
         </div>
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-user-check"></i></span>
 
-        <!-- /.col-md-6 -->
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="m-0">Featured</h5>
+                <div class="info-box-content">
+                    <span class="info-box-text">Verified Users</span>
+                    <span class="info-box-number">{{ $userCount }}</span>
                 </div>
-                <div class="card-body">
-                    <h6 class="card-title">Special title treatment</h6>
-
-                    <p class="card-text">With supporting text below as a natural lead-in to additional
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
+                <!-- /.info-box-content -->
             </div>
-
-            <div class="card card-primary card-outline">
-                <div class="card-header">
-                    <h5 class="m-0">Featured</h5>
-                </div>
-                <div class="card-body">
-                    <h6 class="card-title">Special title treatment</h6>
-
-                    <p class="card-text">With supporting text below as a natural lead-in to additional
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
+            <!-- /.info-box -->
         </div>
-        <!-- /.col-md-6 -->
+        <!-- /.col -->
+
+        <!-- fix for small devices only -->
+        <div class="clearfix hidden-md-up"></div>
+
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-success elevation-1"><i class="fa fa-user-secret"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Admins</span>
+                    <span class="info-box-number">{{ $adminCount }}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-laugh-beam"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Daily Visiters</span>
+                    <span class="info-box-number">{{ rand(200,1000) }}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
     </div>
     <!-- /.row -->
 </div><!-- /.container-fluid -->

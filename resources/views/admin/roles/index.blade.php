@@ -22,13 +22,14 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <div class="card">
+            <div class="card text-light" style="background: #1A202C">
                 <div class="card-header">
                     <h3 class="card-title">Roles Management</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped table-dark">
+                    <a href="" class="btn btn-primary float-left"><i class="fa fa-plus-circle mr-1"></i>New Role</a>
+                    <table id="example1" class="table table-bordered table-striped ">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -39,7 +40,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($roles as $role)
+                            @forelse ($roles as $role)
                             <tr>
                                 <td>{{ $role->id }}</td>
                                 <td>{{ $role->name }}</td>
@@ -54,12 +55,26 @@
                                         class="btn text-warning btn-sm"><i class="fa fa-edit"></i></a>
 
 
-                                    <a href="{{ route('admin.roles.edit',$role->id) }}"
-                                        class="btn text-danger btn-sm"><i class="fa fa-trash"></i></a>
+
+                                    <form action="{{ route('admin.roles.destroy',$role->id) }}" method="post"
+                                        class="d-inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm text-danger"><i
+                                                class="fa fa-trash"></i></button>
+                                    </form>
                                 </td>
 
                             </tr>
-                            @endforeach
+                            @empty
+                            <tr class="h5">
+                                <td colspan="5" class="text-center">
+                                    <i class="fa fa-folder-open"></i>
+                                    <span>No Role Found</span>
+                                </td>
+                            </tr>
+                            @endforelse
+
 
 
                         </tbody>
@@ -101,7 +116,7 @@
         "searching": true,
         "ordering": true,
         "info": false,
-        "autoWidth": true,
+        "autoWidth": false,
         "responsive": true,
         'columnDefs': [ {
         'targets': [3], /* column index */

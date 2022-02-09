@@ -66,10 +66,10 @@
                             <div class="custom-control custom-checkbox">
                                 <input class="custom-control-input" type="checkbox" name="permissions[]"
                                     value="{{ $permission->id }}" id="{{ $permission->id }}" {{
-                                    $user->permissions->contains($permission) ?
+                                    $user->getAllPermissions()->contains($permission) ?
                                 'checked' : ''; }}>
                                 <label for="{{ $permission->id }}" class="custom-control-label">{{
-                                    $permission->id
+                                    $permission->name
                                     }}
                                 </label>
                             </div>

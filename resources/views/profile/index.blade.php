@@ -1,12 +1,31 @@
 @extends("layouts.app")
 @section('content')
 <div class="container">
-    <div class="h4">All Poems {{$name}}</div>
-    @if (session('info'))
-    <div class="alert alert-info">{{session('info')}}</div>
-    @endif
+    <div class="card">
+        <div class="card-body">
+            {{-- //image template --}}
+            <div class="my-3 d-flex justify-content-center align-items-center flex-wrap">
 
-    @forelse ($articles as $article)
+
+                <div class="mr-4 mb-sm-4">
+                    <img src="/images/bg.jpg" alt="" width="150px" height="150px"
+                        class="border-4 border-danger rounded-circle">
+                </div>
+                <div class=" ">
+                    <p class="text-light">Name - {{ $user->name }}</p>
+                    <p class="text-light">Email - {{ $user->email }}</p>
+                    <p class="text-light">Role - <span class="badge  badge-warning">{{
+                            $user->getRoleNames()->first()}}</span> </p>
+                    <a href="#" class="btn btn-danger btn-sm mt-3">Update Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4 h5 d-flex justify-content-between align-items-center">
+        <p>Your Posts</p>
+        <p class="badge badge-warning">{{ $user->articles()->count() }}</p>
+    </div>
+    @forelse ($user->articles()->get() as $article)
 
     <div class="card px-2">
         <div class="card-bodyfitter mt-3">

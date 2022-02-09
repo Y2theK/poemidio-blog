@@ -29,14 +29,14 @@ class AuthServiceProvider extends ServiceProvider
         Gate::before(function ($user, $ability) {
             return $user->hasRole('Super-Admin') ? true : null;
         });
-        Gate::define('comment-delete', function ($user, $comment) {
+        Gate::define('owner-delete-comment', function ($user, $comment) {
             return $user->id == $comment->user_id;
         });
-        Gate::define('category-delete', function ($user, $category) {
+        Gate::define('owner-delete-category', function ($user, $category) {
             return $user->id == $category->user_id;
         });
 
-        Gate::define('edit-delete-post', function ($user, $article) {
+        Gate::define('owner-edit-delete-post', function ($user, $article) {
             return $user->id == $article->user_id;
         });
     }

@@ -71,22 +71,24 @@
                     <ul class="navbar-nav mr-auto">
 
                         <li class="nav-item">
-                            <a href="{{url('/articles')}}" class="nav-link text-info">~ All Articles</a>
+                            <a href="{{ route('articles.index')}}" class="nav-link text-info">~ All Articles</a>
 
                         </li>
                         @auth
+
                         <li class="nav-item">
-                            <a href="{{url('/articles?user')}}" class="nav-link text-info">@ Your Article</a>
+                            <a href="{{ route('profile.index',auth()->id())}}" class="nav-link text-info">@ Your
+                                Profile</a>
 
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('/articles/add')}}" class="nav-link text-info">+ Add Article</a>
+                            <a href="{{ route('articles.add')}}" class="nav-link text-info">+ Add Article</a>
 
                         </li>
 
 
                         <li class="nav-item">
-                            <a href="{{url('/categories')}}" class="nav-link text-info">& Categories</a>
+                            <a href="{{route('categories.index')}}" class="nav-link text-info">& Categories</a>
 
                         </li>
                         @endauth
@@ -161,7 +163,7 @@
                         </a></li>
 
                     @endguest
-                    <li class="nav-items"><a href="{{url('/articles')}}" class="nav-link">
+                    <li class="nav-items"><a href="{{route('articles.index')}}" class="nav-link">
                             <div
                                 class="icon-text   {{Request::fullUrl() == 'http://testlara.herokuapp.com/articles' ? 'active' : ''}}">
                                 <p> <i class="fa fa-house"></i></p>
@@ -181,22 +183,21 @@
 
                     @auth
 
-                    <li class="nav-items"><a href="{{url('/articles/add')}}" class="nav-link">
+                    <li class="nav-items"><a href="{{route('articles.add')}}" class="nav-link">
                             <div class="icon-text {{Request::segment(1)." /".Request::segment(2)=='articles /add'
                                 ? 'active' : '' }}">
                                 <p> <i class="fa fa-circle-plus"></i></p>
                                 <p> Posts</p>
                             </div>
                         </a></li>
-                    <li class="nav-items"><a href="{{url('/categories')}}" class="nav-link">
+                    <li class="nav-items"><a href="{{route('categories.index')}}" class="nav-link">
                             <div class="icon-text   {{Request::segment(1) == 'categories' ? 'active' : ''}}">
                                 <p> <i class="fa fa-list"></i></p>
                                 <p>Categories</p>
                             </div>
                         </a></li>
-                    <li class="nav-items"><a href="{{url('/articles?user')}}" class="nav-link">
-                            <div
-                                class="icon-text  {{Request::fullUrl() == 'http://testlara.herokuapp.com/articles?user=' ? 'active' : ''}}">
+                    <li class="nav-items"><a href="{{route('profile.index',auth()->id())}}" class="nav-link">
+                            <div class="icon-text  {{Request::segment(1) == 'profile' ? 'active' : ''}}">
                                 <p> <i class="fa fa-user"></i></p>
                                 <p>Profile</p>
                             </div>

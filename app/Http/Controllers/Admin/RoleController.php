@@ -19,6 +19,9 @@ class RoleController extends Controller
      */
     public function index()
     {
+        if (auth()->user()->cannot('role-list')) {
+            abort(403, 'u do not have access');
+        }
         $roles = Role::with('permissions')->get();
         
         // dd($roles->permissions);
@@ -32,7 +35,10 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        if (auth()->user()->cannot('user-create')) {
+            abort(403, 'u do not have access');
+        }
+        return abort(403, 'Working in Progress');
     }
 
     /**
@@ -43,7 +49,10 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (auth()->user()->cannot('user-create')) {
+            abort(403, 'u do not have access');
+        }
+        return abort(403, 'Working in Progress');
     }
 
     /**
@@ -54,7 +63,10 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        //
+        if (auth()->user()->cannot('user-list')) {
+            abort(403, 'u do not have access');
+        }
+        return abort(403, 'Working in Progress');
     }
 
     /**
@@ -86,7 +98,11 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        return dd($request->all());
+        if (auth()->user()->cannot('user-edit')) {
+            abort(403, 'u do not have access');
+        }
+        return abort(403, 'Working in Progress');
+        // return dd($request->all());
     }
 
     /**
@@ -97,6 +113,9 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (auth()->user()->cannot('user-delete')) {
+            abort(403, 'u do not have access');
+        }
+        return abort(403, 'Working in Progress');
     }
 }

@@ -7,6 +7,7 @@
         @if (session('info'))
         <div class="alert alert-info">{{session('info')}}</div>
         @endif
+        @can('category-create')
         <form action="{{route('categories.create')}}" class="mt-5" method="POST">
             @csrf
             <div class="form-group">
@@ -17,6 +18,8 @@
             <input type="submit" value="Create" class="btn btn-warning float-right mb-3">
 
         </form>
+        @endcan
+
         <li class="list-group-item bg-dark text-info"><b> {{count($categories)}} categories </b></li>
         @foreach ($categories as $category)
 

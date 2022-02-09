@@ -12,7 +12,7 @@
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-left">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Users</li>
+                <li class="breadcrumb-item active">Articles</li>
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -22,13 +22,19 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <div class="card">
+            <div class="card text-light" style="background: #1A202C">
                 <div class="card-header">
                     <h3 class="card-title">Articles Management</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped table-dark">
+                    @if (session('info'))
+                    <div class="alert alert-info">{{session('info')}}</div>
+                    @endif
+                    <a href="{{ route('admin.articles.create') }}" class="btn btn-primary float-left"><i
+                            class="fa fa-plus-circle m-1"></i>New Article</a>
+
+                    <table id="example1" class="table table-bordered table-striped  ">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -52,9 +58,14 @@
                                     <a href="{{ route('admin.articles.edit',$article->id) }}"
                                         class="btn text-warning btn-sm"><i class="fa fa-edit"></i></a>
 
+                                    <form action="{{ route('admin.articles.destroy',$article->id) }}" method="post"
+                                        class="d-inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm text-danger"><i class="fa fa-trash"
+                                                onclick="return confirm('Are you sure to delete?')"></i></button>
+                                    </form>
 
-                                    <a href="{{ route('admin.articles.edit',$article->id) }}"
-                                        class="btn text-danger btn-sm"><i class="fa fa-trash"></i></a>
                                 </td>
 
                             </tr>
@@ -107,7 +118,7 @@
         "searching": true,
         "ordering": true,
         "info": true,
-        "autoWidth": true,
+        "autoWidth": false,
         "responsive": true,
         'columnDefs': [ {
         'targets': [4], /* column index */

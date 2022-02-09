@@ -17,6 +17,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        if (auth()->user()->cannot('user-list')) {
+            abort(403, 'u do not have access');
+        }
         $users = User::with('roles')->get();
         return view('admin.users.index', compact('users'));
     }
@@ -28,7 +31,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        if (auth()->user()->cannot('user-create')) {
+            abort(403, 'u do not have access');
+        }
+        return abort(403, 'Working in Progress');
     }
 
     /**
@@ -39,7 +45,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (auth()->user()->cannot('user-create')) {
+            abort(403, 'u do not have access');
+        }
+        return abort(403, 'Working in Progress');
     }
 
     /**
@@ -50,7 +59,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        if (auth()->user()->cannot('user-list')) {
+            abort(403, 'u do not have access');
+        }
+        return abort(403, 'Working in Progress');
     }
 
     /**
@@ -61,6 +73,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        if (auth()->user()->cannot('user-edit')) {
+            abort(403, 'u do not have access');
+        }
         $roles = Role::all();
         $allPermissions = Permission::all();
         return view('admin.users.edit', compact('user', 'roles', 'allPermissions'));
@@ -75,6 +90,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        if (auth()->user()->cannot('user-edit')) {
+            abort(403, 'u do not have access');
+        }
         $validator = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',
@@ -92,8 +110,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        if (auth()->user()->cannot('user-edit')) {
+            abort(403, 'u do not have access');
+        }
+        $categuserory->destroy($user->id);
+        return redirect()->route('admin.users.index')->with('info', 'User Deleted Successfully');
     }
 }
