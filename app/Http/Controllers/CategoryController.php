@@ -9,6 +9,10 @@ use App\Http\Requests\CategoryCreateRequest;
 
 class CategoryController extends Controller
 {
+    public function __construct(Category $category)
+    {
+        $this->middleware('permission:category-list', ['only' => ['index']]);
+    }
     public function index()
     {
         $categories = Category::latest()->get();
@@ -25,7 +29,7 @@ class CategoryController extends Controller
     }
     public function delete(Category $category)
     {
-        if (Gate::denies('category-delete', $category)) {
+        if (Gate::denies('owner-delete-category', $category)) {
             abort('403', 'Unauthorized');
         }
         $category->delete();

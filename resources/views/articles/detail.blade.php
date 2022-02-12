@@ -10,10 +10,10 @@
         <div class="card-bodyfitter mt-3">
             <h6 class="card-title poem-title">{{$article->title}}</h5>
 
-                <span class=""> Category : <span
-                        class="badge badge-warning rounded-pill">{{$article->category->name}}</span></span>
-                <span class="ml-2">Posted By : <span
-                        class="badge badge-warning rounded-pill">{{$article->user->name}}</span></span>
+                <span class=""> Category : <span class="badge badge-warning rounded-pill">{{$article->category->name??
+                        'Unknown'}}</span></span>
+                <span class="ml-2">Posted By : <span class="badge badge-warning rounded-pill">{{$article->user->name ??
+                        'Anormous'}}</span></span>
         </div>
         <div class="card-subtitle mt-2 "><span class="text-muted small">{{$article->created_at->diffForHumans()}}</span>
         </div>
@@ -23,16 +23,17 @@
 
         <pre>{{$article->body}}</pre>
         </p>
-        @if (Gate::allows('edit-delete-post',$article))
+        @can('owner-edit-delete-post', $article)
         <div class="p-2">
-            <a href="{{route('articles.delete',$article->id)}}" onclick="confirm('Are you sure to delete..?');" class="btn btn-outline-light float-right
+            <a href="{{route('articles.delete',$article->id)}}" onclick="return confirm('Are you sure to delete..?');"
+                class="btn btn-outline-light float-right
                 ">Delete</a>
             <a href="{{route('articles.edit',$article->id)}}" class="btn btn-primary float-right mr-2">Edit</a>
 
 
         </div>
+        @endcan
 
-        @endif
         <hr>
         @auth
         <ul class="list-group my-2 bg-dark" id="comments-section">
@@ -69,8 +70,9 @@
 
                     <span class="text-primary mr-2"> {{$comment->user->name}} </span> <span class="card-text flex-fill">
                         {{$comment->content}}</span>
-                    @if (Gate::allows('comment-delete',$comment))
-                    <a href="{{route('comments.delete',$comment->id)}}" class="close text-warning">&times</a>
+                    @if (Gate::allows('owner-delete-comment',$comment))
+                    <a href="{{route('comments.delete',$comment->id)}}" class="close text-warning"
+                        onclick="return confirm('Are you sure to delete..?');">&times</a>
                     @endif
 
 

@@ -1,6 +1,7 @@
 @extends("layouts.app")
 @section('content')
 <div class="container">
+    <div class="h4">Your Profile</div>
     <div class="card">
         <div class="card-body">
             {{-- //image template --}}

@@ -18,22 +18,29 @@ class AdminUserSeeder extends Seeder
     {
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
+       
+         
         //creating users
         $superadmin = User::create([
             'name' => 'superadmin',
             'email' => 'mysuperadmin@gmail.com',
-            'password' => bcrypt('12345678')
+            'password' => bcrypt('asdfasdf')
         ]);
         $admin = User::create([
             'name' => 'admin',
             'email' => 'myadmin@gmail.com',
-            'password' => bcrypt('12345678')
+            'password' => bcrypt('asdfasdf')
         ]);
         $user = User::create([
             'name' => 'normaluser',
             'email' => 'user@gmail.com',
-            'password' => bcrypt('12345678')
+            'password' => bcrypt('asdfasdf')
         ]);
+        //assigning users to roles
+        $superadmin->assignRole('Super-Admin');
+        $admin->assignRole('Admin');
+        $user->assignRole('User');
+        
         //giving user to permission
         $admin->givePermissionTo([
             'user-list','user-create','user-edit','user-delete',
@@ -43,26 +50,7 @@ class AdminUserSeeder extends Seeder
         $user->givePermissionTo([
             'article-list','article-create','article-edit','article-delete',
             'category-list',
+            'comment-list','comment-create','comment-edit','comment-delete',
         ]);
-        
-        //creating roles
-        $roleSuperAdmin = Role::create(['name' => 'Super-Admin']);
-        $roleAdmin = Role::create(['name' => 'Admin']);
-        $roleSuperUser = Role::create(['name' => 'Super-User']);
-        $roleUser = Role::create(['name' => 'User']);
-        
-        //giving permission to roles
-        $roleAdmin->givePermissionTo([
-            'user-list','user-create','user-edit','user-delete',
-            'article-list','article-create','article-edit','article-delete',
-            'category-list','category-create','category-edit','category-delete',
-           
-        ]);
-        $roleUser->givePermissionTo('article-list', 'article-create', 'article-edit', 'article-delete', 'category-list');
-   
-        //assigning users to roles
-        $superadmin->assignRole($roleSuperAdmin);
-        $admin->assignRole($roleAdmin);
-        $user->assignRole($roleUser);
     }
 }

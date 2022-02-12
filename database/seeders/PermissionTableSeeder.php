@@ -22,7 +22,9 @@ class PermissionTableSeeder extends Seeder
             'user-list','user-create','user-edit','user-delete',
             'article-list','article-create','article-edit','article-delete',
             'category-list','category-create','category-edit','category-delete',
-            'role-list','role-create','role-edit','role-delete'
+            'role-list','role-create','role-edit','role-delete',
+            'comment-list','comment-create','comment-edit','comment-delete',
+            'notification-list','notification-create','notification-edit','notification-delete'
         ];
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);

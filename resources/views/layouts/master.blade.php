@@ -83,7 +83,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="/" class="brand-link">
                 <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">POEMIDIO</span>
+                <span class="brand-text font-weight-light">POEMIDIO </span>
             </a>
 
             <!-- Sidebar -->
@@ -110,35 +110,63 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li class="nav-item menu-open">
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.dashboard') }}" class="nav-link">
+                                    <a href="{{ route('admin.dashboard') }}"
+                                        class="nav-link {{ request()->segment(2) == '' ? 'active' : '' }}">
                                         <i class="fa fa-palette nav-icon"></i>
                                         <p>Dashboard</p>
                                     </a>
                                 </li>
+
+
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.articles.index') }}" class="nav-link">
+                                    <a href="{{ route('admin.articles.index') }}"
+                                        class="nav-link {{ request()->segment(2) == 'articles' ? 'active' : '' }} ">
                                         <i class="fa fa-book nav-icon"></i>
                                         <p>Articles Management</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.categories.index') }}" class="nav-link">
+                                    <a href="{{ route('admin.categories.index') }}"
+                                        class="nav-link {{ request()->segment(2) == 'categories' ? 'active' : '' }}">
                                         <i class="fa fa-list nav-icon"></i>
                                         <p>Categories Management</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.users.index') }}" class="nav-link">
+                                    <a href="{{ route('admin.users.index') }}"
+                                        class="nav-link {{ request()->segment(2) == 'users' ? 'active' : '' }}">
                                         <i class="fa fa-users nav-icon"></i>
                                         <p>Users Management </p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.roles.index') }}" class="nav-link">
-                                        <i class="fa fa-magic nav-icon"></i>
-                                        <p>Roles Management </p>
+                                <li
+                                    class="nav-item {{ request()->segment(2) == 'roles' || request()->segment(2) == 'permissions' ? 'menu-open' : '' }}">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                                        <p>
+                                            Roles-Permissions
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.roles.index') }}"
+                                                class="nav-link {{ request()->segment(2) == 'roles' ? 'active' : '' }}">
+                                                <i class="fa fa-magic nav-icon"></i>
+                                                <p>Roles Management </p>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.permissions.index') }}"
+                                                class="nav-link {{ request()->segment(2) == 'permissions' ? 'active' : '' }}">
+                                                <i class="fa fa-key nav-icon"></i>
+                                                <p>Permissions </p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
+
                                 <li class="nav-item">
 
                                     <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();

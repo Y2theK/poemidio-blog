@@ -12,7 +12,7 @@
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-left">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Roles</li>
+                <li class="breadcrumb-item active">Permissions</li>
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -24,41 +24,37 @@
         <div class="col-12">
             <div class="card text-light" style="background: #1A202C">
                 <div class="card-header">
-                    <h3 class="card-title">Roles Management</h3>
+                    <h3 class="card-title">Permissions Management</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <a href="{{ route('admin.roles.create') }}" class="btn btn-primary float-left"><i
-                            class="fa fa-plus-circle mr-1"></i>New Role</a>
+                    <a href="{{ route('admin.permissions.create') }}" class="btn btn-primary float-left"><i
+                            class="fa fa-plus-circle mr-1"></i>New Permission</a>
                     <table id="example1" class="table table-bordered table-striped ">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Roles</th>
+
                                 <th>Permissions</th>
                                 <th>Actions</th>
 
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($roles as $role)
+                            @forelse ($permissions as $permission)
                             <tr>
-                                <td>{{ $role->id }}</td>
-                                <td>{{ $role->name }}</td>
-                                <td>
-                                    @foreach ($role->getPermissionNames() as $permission)
-                                    <span class="badge rounded-pill bg-warning">{{ $permission }}</span>
-                                    @endforeach
-                                </td>
+                                <td>{{ $permission->id }}</td>
+                                <td>{{ $permission->name }}</td>
+
                                 <td>
 
-                                    <a href="{{ route('admin.roles.edit',$role->id) }}"
+                                    <a href="{{ route('admin.permissions.edit',$permission->id) }}"
                                         class="btn text-warning btn-sm"><i class="fa fa-edit"></i></a>
 
 
 
-                                    <form action="{{ route('admin.roles.destroy',$role->id) }}" method="post"
-                                        class="d-inline-block">
+                                    <form action="{{ route('admin.permissions.destroy',$permission->id) }}"
+                                        method="post" class="d-inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm text-danger"><i
@@ -71,7 +67,7 @@
                             <tr class="h5">
                                 <td colspan="5" class="text-center">
                                     <i class="fa fa-folder-open"></i>
-                                    <span>No Role Found</span>
+                                    <span>No Permission Found</span>
                                 </td>
                             </tr>
                             @endforelse
@@ -112,7 +108,8 @@
     $(function () {
     
       $('#example1').DataTable({
-        "paging": false,
+        "paging": true,
+        "pageLength" : 8,
         "lengthChange": false,
         "searching": true,
         "ordering": true,
@@ -120,7 +117,7 @@
         "autoWidth": false,
         "responsive": true,
         'columnDefs': [ {
-        'targets': [3], /* column index */
+        'targets': [2], /* column index */
         'orderable': false, /* true or false */
         
      }]

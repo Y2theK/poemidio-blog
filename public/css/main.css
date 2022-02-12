@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Nunuto, Roboto, "Open Sans", "Helvetica Neue", sans-serif;
 }
 li {
     text-decoration: none;
@@ -88,7 +89,9 @@ pre {
 #logOutDropDown li a#navbarDropdown:hover {
     color: var(--white);
 }
-
+#notificationIcon {
+    display: none;
+}
 /* like and comment count block div */
 div.like-comment-count {
     margin-left: 150px;
@@ -98,7 +101,9 @@ div.like-comment-count {
     #logOutDropDown {
         display: inline-block;
     }
-
+    #notificationIcon {
+        display: inline-block;
+    }
     /* mobile navigation */
     .navigation {
         display: block;

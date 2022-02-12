@@ -32,13 +32,13 @@ class Article extends Model
     {
         return $this->belongsTo('\App\Models\User');
     }
-    protected static function boot()
-    {
-        parent::boot();
-        if (auth()->check()) {
-            self::creating(function ($model) {
-                $model->user_id = auth()->id();
-            });
-        }
-    }
+    // protected static function boot()
+    // {
+    //     parent::boot();
+    //     if (auth()->check()) {
+    //         self::creating(function ($model) {
+    //             $model->user_id = auth()->id();
+    //         });
+    //     }
+    // }
 }

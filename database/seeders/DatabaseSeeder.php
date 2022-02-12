@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\AdminUserSeeder;
+use Database\Seeders\RoleTableSeeder;
 use Database\Seeders\PermissionTableSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,17 +16,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Article::factory(20)->create();
-        \App\Models\Comment::factory(40)->create();
+        //seeding PermissionTableSeeder and AdminUserSeeder
+        $this->call([
+            RoleTableSeeder::class,
+            PermissionTableSeeder::class,
+            AdminUserSeeder::class
+        ]);
+
+        \App\Models\Article::factory(30)->create();
+        \App\Models\Comment::factory(50)->create();
 
         //seeding users
         \App\Models\User::factory()->create([
             'name' => "Y2theK",
             'email' => "y2k@gmail.com"
         ]);
+      
         \App\Models\User::factory()->create([
-            'name' => "admin",
-            'email' => "admin@gmail.com"
+            'name' => "superuser",
+            'email' => "superuser@gmail.com"
         ]);
 
         //seeding category
@@ -36,11 +45,5 @@ class DatabaseSeeder extends Seeder
             
         ]);
         }
-
-        //seeding PermissionTableSeeder and AdminUserSeeder
-        $this->call([
-            PermissionTableSeeder::class,
-            AdminUserSeeder::class
-        ]);
     }
 }

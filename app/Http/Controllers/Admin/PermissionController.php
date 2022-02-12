@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 
 use Spatie\Permission\Models\Permission;
 
-class RoleController extends Controller
+class PermissionController extends Controller
 {
-  
     /**
      * Display a listing of the resource.
      *
@@ -22,10 +19,10 @@ class RoleController extends Controller
         if (auth()->user()->cannot('role-list')) {
             abort(403, 'u do not have access');
         }
-        $roles = Role::with('permissions')->get();
+        $permissions = Permission::get();
         
         // dd($roles->permissions);
-        return view('admin.roles.index', compact('roles'));
+        return view('admin.permissions.index', compact('permissions'));
     }
 
     /**
@@ -35,6 +32,7 @@ class RoleController extends Controller
      */
     public function create()
     {
+        //
         if (auth()->user()->cannot('role-create')) {
             abort(403, 'u do not have access');
         }
@@ -49,6 +47,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        //
         if (auth()->user()->cannot('role-create')) {
             abort(403, 'u do not have access');
         }
@@ -63,7 +62,8 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        if (auth()->user()->cannot('user-list')) {
+        //
+        if (auth()->user()->cannot('role-list')) {
             abort(403, 'u do not have access');
         }
         return abort(403, 'Working in Progress');
@@ -75,18 +75,13 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit($id)
     {
-        $user = auth()->user();
-        // if (!$user->hasPermissionTo('role-edit')) {
-        //     abort(403, 'U Dont Have Access');
-        // }
-
-        if (! $user->can('role-edit')) {
-            abort(403, 'U Dont Have Access');
+        //
+        if (auth()->user()->cannot('role-edit')) {
+            abort(403, 'u do not have access');
         }
-        $allPermissions = Permission::all();
-        return view('admin.roles.edit', compact('role', 'allPermissions'));
+        return abort(403, 'Working in Progress');
     }
 
     /**
@@ -96,13 +91,13 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, $id)
     {
+        //
         if (auth()->user()->cannot('role-edit')) {
             abort(403, 'u do not have access');
         }
         return abort(403, 'Working in Progress');
-        // return dd($request->all());
     }
 
     /**
@@ -113,6 +108,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+        //
         if (auth()->user()->cannot('role-delete')) {
             abort(403, 'u do not have access');
         }

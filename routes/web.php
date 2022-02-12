@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
@@ -51,15 +52,16 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::prefix('profile/')->as('profile.')->group(function () {
         Route::get('/{user}', [ProfileController::class,'index'])->name('index');
+        Route::get('/{user}/notifications', [ProfileController::class,'getNotifications'])->name('notification');
     });
 });
 
 //admin routes
-Route::middleware('role:Admin|Super-Admin|Super-User', 'auth')->prefix('admin/')->as('admin.')->group(function () {
+Route::middleware('role:Admin|Super-Admin', 'auth')->prefix('admin/')->as('admin.')->group(function () {
     Route::get('/', [DashboardController::class,'index'])->name('dashboard');
     Route::resource('/roles', RoleController::class);
+    Route::resource('/permissions', PermissionController::class);
     Route::resource('/users', UserController::class);
     Route::resource('/articles', AdminArticleController::class);
     Route::resource('/categories', AdminCategoryController::class);
-    // Route::get('/roles', [RoleController::class,'index'])->name('roles.index');
 });

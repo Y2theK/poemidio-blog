@@ -2,28 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ArticleCreateRequest;
-use App\Http\Requests\ArticleUpdateRequest;
+use App\Models\User;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Facade;
+use App\Http\Requests\ArticleCreateRequest;
+use App\Http\Requests\ArticleUpdateRequest;
 use Illuminate\Support\Facades\Gate as FacadesGate;
 
 class ArticleController extends Controller
 {
+    public function __construct(Article $article)
+    {
+        $this->middleware('permission:article-list', ['only' => ['index','detail']]);
+
+        $this->middleware('permission:article-create', ['only' => ['add','create']]);
+
+        $this->middleware('permission:article-edit', ['only' => ['edit','update']]);
+
+        $this->middleware('permission:article-delete', ['only' => ['delete']]);
+    }
+
+    
     public function index()
     {
-        if (request()->has('user')) {
-            $data = Article::where('user_id', auth()->user()->id)->latest()->get();
-            $name = auth()->user()->name;
-        } else {
-            $data = Article::with(['category','user'])->latest()->get();
-            $name = "";
-        }
+        $data = Article::with(['category','user'])->latest()->get();
+        
         return view('articles.index', [
             "articles" => $data,
-            "name" => "$name"
            
         ]);
     }
@@ -33,14 +40,6 @@ class ArticleController extends Controller
         return view('articles.detail', [
             "article" => $article
         ]);
-    }
-    public function delete(Article $article)
-    {
-        if (FacadesGate::denies('edit-delete-post', $article)) {
-            abort(403, 'Unauthorized');
-        }
-        $article->delete();
-        return redirect()->route('articles.index')->with('info', 'Article Deleted Successfully..!');
     }
     public function add()
     {
@@ -53,14 +52,16 @@ class ArticleController extends Controller
     {
         $article = new Article;
         $article::create(
-            $request->validated()
+            $request->validated() + ['user_id' => auth()->id()]
         );
         return redirect()->route('articles.index')->with('info', 'Article Created Successfully..!');
     }
+   
+    
     public function edit(Article $article)
     {
         $categories = Category::all();
-        if (! FacadesGate::allows('edit-delete-post', $article)) {
+        if (! FacadesGate::allows('owner-edit-delete-post', $article)) {
             abort(403, 'Unauthorized');
         }
         return view('articles.edit', [
@@ -72,5 +73,13 @@ class ArticleController extends Controller
     {
         $article->update($request->validated());
         return redirect()->route('articles.detail', $article->id)->with('info', 'Article Updated Successfully..!');
+    }
+    public function delete(Article $article)
+    {
+        if (FacadesGate::denies('owner-edit-delete-post', $article)) {
+            abort(403, 'Unauthorized');
+        }
+        $article->delete();
+        return redirect()->route('articles.index')->with('info', 'Article Deleted Successfully..!');
     }
 }

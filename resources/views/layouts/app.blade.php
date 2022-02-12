@@ -35,11 +35,25 @@
         <nav class="navbar navbar-expand-md  navbar-dark bg-dark shadow-lg">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
+                    <i class="fa fa-biohazard"></i>
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 @auth
+                <ul class="navbar-nav my-auto ml-auto" id="notificationIcon">
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="{{ route('profile.notification',auth()->id()) }} ">
+                            <i class="far fa-bell"></i>
+                            <span class="badge badge-warning ">9</span>
+                        </a>
+                    </li>
+
+
+
+                </ul>
 
                 <ul class=" ml-auto my-auto" id="logOutDropDown">
+
                     <li class="dropdown ">
                         <a id="navbarDropdown" class=" dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false" v-pre>
@@ -57,7 +71,9 @@
                             </form>
                         </div>
                     </li>
+
                 </ul>
+
                 @endauth
 
                 {{-- <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -88,7 +104,8 @@
 
 
                         <li class="nav-item">
-                            <a href="{{route('categories.index')}}" class="nav-link text-info">& Categories</a>
+                            <a href="{{route('profile.notification',auth()->id())}}" class="nav-link text-info">&
+                                Categories</a>
 
                         </li>
                         @endauth
@@ -111,6 +128,14 @@
                         </li>
                         @endif
                         @else
+
+                        <li class="nav-item">
+
+                            <a class="nav-link" href="{{ route('profile.notification',auth()->id()) }} ">
+                                <i class="far fa-bell"></i>
+                                <span class="badge badge-warning ">9</span>
+                            </a>
+                        </li>
                         <li class="nav-item dropdown ">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -128,6 +153,7 @@
                                 </form>
                             </div>
                         </li>
+
                         @endguest
                     </ul>
                 </div>
@@ -154,6 +180,24 @@
 
 
                     @guest
+                    <li class="nav-items"><a href="{{url('/login')}}" class="nav-link">
+                            <div class="icon-text {{Request::segment(1) == 'login' ? 'active' : ''}}">
+                                <p> <i class="fa fa-sign-in-alt"></i></p>
+                                <p>Login</p>
+                            </div>
+                        </a></li>
+
+
+                    @endguest
+                    <li class="nav-items"><a href="{{route('articles.index')}}" class="nav-link">
+                            <div class="icon-text   {{Request::segment(1)." /".Request::segment(2)=='articles /'
+                                ? 'active' : '' }}">
+                                <p> <i class="fa fa-house"></i></p>
+                                <p>Home</p>
+                            </div>
+
+                        </a></li>
+                    @guest
                     <li class="nav-items"><a href="{{url('/register')}}" class="nav-link">
                             <div class="icon-text  {{Request::segment(1) == 'register' ? 'active' : ''}}">
                                 <p><i class="fa fa-arrow-up-from-bracket"></i></p>
@@ -162,22 +206,6 @@
                             </div>
                         </a></li>
 
-                    @endguest
-                    <li class="nav-items"><a href="{{route('articles.index')}}" class="nav-link">
-                            <div
-                                class="icon-text   {{Request::fullUrl() == 'http://testlara.herokuapp.com/articles' ? 'active' : ''}}">
-                                <p> <i class="fa fa-house"></i></p>
-                                <p>Home</p>
-                            </div>
-
-                        </a></li>
-                    @guest
-                    <li class="nav-items"><a href="{{url('/login')}}" class="nav-link">
-                            <div class="icon-text {{Request::segment(1) == 'login' ? 'active' : ''}}">
-                                <p> <i class="fa fa-sign-in-alt"></i></p>
-                                <p>Login</p>
-                            </div>
-                        </a></li>
                     @endguest
 
 
