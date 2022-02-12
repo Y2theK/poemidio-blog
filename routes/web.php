@@ -52,7 +52,8 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::prefix('profile/')->as('profile.')->group(function () {
         Route::get('/{user}', [ProfileController::class,'index'])->name('index');
-        Route::get('/{user}/notifications', [ProfileController::class,'getNotifications'])->name('notification');
+        Route::get('/{user}/notifications', [ProfileController::class,'getCommentNotifications'])->name('notification');
+        Route::get('/notifications/{id}', [ProfileController::class,'markAsRead'])->name('notification.markAsRead');
     });
 });
 

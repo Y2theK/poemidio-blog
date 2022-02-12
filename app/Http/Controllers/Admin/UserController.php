@@ -115,7 +115,7 @@ class UserController extends Controller
         if (auth()->user()->cannot('user-edit')) {
             abort(403, 'u do not have access');
         }
-        $categuserory->destroy($user->id);
+        $user->destroy($user->id);
         return redirect()->route('admin.users.index')->with('info', 'User Deleted Successfully');
     }
 }

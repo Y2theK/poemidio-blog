@@ -44,7 +44,11 @@
 
                         <a class="nav-link" href="{{ route('profile.notification',auth()->id()) }} ">
                             <i class="far fa-bell"></i>
-                            <span class="badge badge-warning ">9</span>
+
+                            <span class="badge badge-info">{{
+                                auth()->user()->unreadNotifications->where('type','App\Notifications\CommentCreatedNotification')->count()
+                                }}</span>
+
                         </a>
                     </li>
 
@@ -104,7 +108,7 @@
 
 
                         <li class="nav-item">
-                            <a href="{{route('profile.notification',auth()->id())}}" class="nav-link text-info">&
+                            <a href="{{route('categories.index',auth()->id())}}" class="nav-link text-info">&
                                 Categories</a>
 
                         </li>
@@ -133,7 +137,9 @@
 
                             <a class="nav-link" href="{{ route('profile.notification',auth()->id()) }} ">
                                 <i class="far fa-bell"></i>
-                                <span class="badge badge-warning ">9</span>
+                                <span class="badge badge-info ">{{
+                                    auth()->user()->unreadNotifications->where('type','App\Notifications\CommentCreatedNotification')->count()
+                                    }}</span>
                             </a>
                         </li>
                         <li class="nav-item dropdown ">
@@ -225,7 +231,8 @@
                             </div>
                         </a></li>
                     <li class="nav-items"><a href="{{route('profile.index',auth()->id())}}" class="nav-link">
-                            <div class="icon-text  {{Request::segment(1) == 'profile' ? 'active' : ''}}">
+                            <div class="icon-text  {{Request::segment(1)." /".Request::segment(3)=='profile /'
+                                ? 'active' : '' }}">
                                 <p> <i class="fa fa-user"></i></p>
                                 <p>Profile</p>
                             </div>

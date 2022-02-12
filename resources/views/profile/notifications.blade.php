@@ -9,17 +9,30 @@
 
                 {{-- {{ dd($notifications->type) }} --}}
                 @forelse ($notifications as $notification)
-                <div class="alert alert-info" role="alert">
-                    {{ $notification->data['comment_user_name'] }} commented your post
-                    of "{{ $notification->data['article_title'] }}"
+                <div
+                    class="alert alert-secondary d-flex justify-content-between align-items-center {{ $notification->read_at == '' ? 'alert-info' : '' }}">
 
-                    [{{ $notification->created_at->diffForHumans() }}]
-                    <a href="{{ route('articles.detail',$notification->data['article_id'] ) }}"
+                    <div>
+                        <p class=" m-0 p-0">
+                            <strong> {{ $notification->data['comment_user_name'] }}</strong>
+                            commented your post
+                            of <strong>"{{ $notification->data['article_title'] }}"</strong>
+
+                        </p>
+                        <small>
+                            [{{ $notification->created_at->diffForHumans() }}]
+                        </small>
+
+                    </div>
+
+
+                    <a href="{{ route('profile.notification.markAsRead', $notification->id) }}"
                         class="float-right mark-as-read h5" data-id="{{ $notification->id }}">
                         &raquo;
                     </a>
 
                 </div>
+
                 {{-- <div class="alert alert-info">{{ $notification->data['article_user'] }}</div> --}}
                 @empty
                 <div class="alert alert-secondary" role="alert">You have no notifications yet...</div>

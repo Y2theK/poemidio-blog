@@ -123,7 +123,7 @@
     $(function () {
     
       $('#example1').DataTable({
-        "paging": false,
+        "paging": true,
         "lengthChange": false,
         "searching": true,
         "ordering": true,

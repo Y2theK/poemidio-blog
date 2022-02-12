@@ -15,7 +15,7 @@ class ArticleController extends Controller
 {
     public function __construct(Article $article)
     {
-        $this->middleware('permission:article-list', ['only' => ['index','detail']]);
+        // $this->middleware('permission:article-list', ['only' => ['index','detail']]);
 
         $this->middleware('permission:article-create', ['only' => ['add','create']]);
 

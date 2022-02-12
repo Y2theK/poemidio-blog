@@ -13,12 +13,21 @@ class ProfileController extends Controller
     {
         return view('profile.index', compact('user'));
     }
-    public function getNotifications(User $user)
+    public function getCommentNotifications(User $user)
     {
         $notifications = $user->notifications->where('type', CommentCreatedNotification::class)->all();
         
         
         // dd($notifications->data);
         return view('profile.notifications', compact('notifications'));
+    }
+    public function markAsRead($id)
+    {
+        $notification = auth()->user()->notifications->find($id);
+        if ($notification) {
+            $notification->markAsRead();
+            return redirect()->route('articles.detail', $notification->data['article_id']);
+        }
+        dd($notification);
     }
 }
