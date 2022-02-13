@@ -31,6 +31,11 @@ class AdminUserSeeder extends Seeder
             'email' => 'myadmin@gmail.com',
             'password' => bcrypt('asdfasdf')
         ]);
+        $superuser = User::create([
+            'name' => 'superuser',
+            'email' => 'superuser@gmail.com',
+            'password' => bcrypt('asdfasdf')
+        ]);
         $user = User::create([
             'name' => 'normaluser',
             'email' => 'user@gmail.com',
@@ -39,6 +44,7 @@ class AdminUserSeeder extends Seeder
         //assigning users to roles
         $superadmin->assignRole('Super-Admin');
         $admin->assignRole('Admin');
+        $superuser->assignRole('Super-User');
         $user->assignRole('User');
         
         //giving user to permission
@@ -46,6 +52,13 @@ class AdminUserSeeder extends Seeder
             'user-list','user-create','user-edit','user-delete',
             'article-list','article-create','article-edit','article-delete',
             'category-list','category-create','category-edit','category-delete',
+            'comment-list','comment-create','comment-edit','comment-delete',
+            'notification-list','notification-create','notification-edit','notification-delete',
+        ]);
+        $superuser->givePermissionTo([
+            'article-list','article-create','article-edit','article-delete',
+            'category-list','category-create','category-edit','category-delete',
+            'comment-list','comment-create','comment-edit','comment-delete',
         ]);
         $user->givePermissionTo([
             'article-list','article-create','article-edit','article-delete',

@@ -74,7 +74,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm text-danger"><i class="fa fa-trash"
-                                                onclick="return confirm('Are you sure?')"></i></button>
+                                                onclick="return confirm('Are you sure?');"></i></button>
                                     </form>
                                 </td>
 
@@ -83,7 +83,7 @@
                             <tr class=" h5">
                                 <td colspan="5" class="text-center">
                                     <i class="fa fa-folder-open"></i>
-                                    <span>No User Found</span>
+                                    <span>No User Found...</span>
                                 </td>
                             </tr>
                             @endforelse

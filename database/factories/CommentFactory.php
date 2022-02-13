@@ -24,7 +24,7 @@ class CommentFactory extends Factory
         return [
             'content' => $this->faker->word(),
             'article_id' => rand(1, 30),
-            'user_id' => rand(1, 5)
+            'user_id' => rand(1, 4)
 
         ];
     }

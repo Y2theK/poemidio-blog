@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -46,17 +48,5 @@ class User extends Authenticatable
     public function articles()
     {
         return $this->hasMany('\App\Models\Article')->latest();
-    }
-    protected static function boot()
-    {
-        parent::boot();
-        
-        self::creating(function ($model) {
-            $model->givePermissionTo([
-                'article-list','article-create','article-edit','article-delete',
-                'category-list',
-            ]);
-            $model->assignRole('User') ;
-        });
     }
 }

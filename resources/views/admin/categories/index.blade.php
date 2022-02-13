@@ -67,9 +67,10 @@
 
                             </tr>
                             @empty
-                            <tr>
-                                <td>
-                                    <p>No User Found</p>
+                            <tr class=" h5">
+                                <td colspan="5" class="text-center">
+                                    <i class="fa fa-folder-open"></i>
+                                    <span>No Category Found...</span>
                                 </td>
                             </tr>
                             @endforelse

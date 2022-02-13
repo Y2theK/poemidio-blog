@@ -3,12 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Role;
 
+use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
+    public function __construct(Role $role)
+    {
+        $this->middleware('permission:role-list', ['only' => ['index','show']]);
+
+        $this->middleware('permission:role-create', ['only' => ['create','store']]);
+
+        $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+
+        $this->middleware('permission:role-delete', ['only' => ['destory']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,9 +27,6 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->cannot('role-list')) {
-            abort(403, 'u do not have access');
-        }
         $permissions = Permission::get();
         
         // dd($roles->permissions);
@@ -32,10 +40,6 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
-        if (auth()->user()->cannot('role-create')) {
-            abort(403, 'u do not have access');
-        }
         return abort(403, 'Working in Progress');
     }
 
@@ -47,10 +51,6 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        if (auth()->user()->cannot('role-create')) {
-            abort(403, 'u do not have access');
-        }
         return abort(403, 'Working in Progress');
     }
 
@@ -62,10 +62,6 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        //
-        if (auth()->user()->cannot('role-list')) {
-            abort(403, 'u do not have access');
-        }
         return abort(403, 'Working in Progress');
     }
 
@@ -77,10 +73,6 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        //
-        if (auth()->user()->cannot('role-edit')) {
-            abort(403, 'u do not have access');
-        }
         return abort(403, 'Working in Progress');
     }
 
@@ -93,10 +85,6 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        if (auth()->user()->cannot('role-edit')) {
-            abort(403, 'u do not have access');
-        }
         return abort(403, 'Working in Progress');
     }
 
@@ -108,10 +96,6 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
-        if (auth()->user()->cannot('role-delete')) {
-            abort(403, 'u do not have access');
-        }
         return abort(403, 'Working in Progress');
     }
 }

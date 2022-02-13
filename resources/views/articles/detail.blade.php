@@ -13,7 +13,7 @@
                 <span class=""> Category : <span class="badge badge-warning rounded-pill">{{$article->category->name??
                         'Unknown'}}</span></span>
                 <span class="ml-2">Posted By : <span class="badge badge-warning rounded-pill">{{$article->user->name ??
-                        'Anormous'}}</span></span>
+                        'Anormyous'}}</span></span>
         </div>
         <div class="card-subtitle mt-2 "><span class="text-muted small">{{$article->created_at->diffForHumans()}}</span>
         </div>
@@ -23,6 +23,7 @@
 
         <pre>{{$article->body}}</pre>
         </p>
+
         @can('owner-edit-delete-post', $article)
         <div class="p-2">
             <a href="{{route('articles.delete',$article->id)}}" onclick="return confirm('Are you sure to delete..?');"

@@ -13,8 +13,10 @@ class DashboardController extends Controller
     public function index()
     {
         $articleCount = Article::count();
-        $userCount = User::role('User')->count();
+        $userCount = User::role(['User', 'Super-User'])->count();
+
         $adminCount = User::role(['Admin', 'Super-Admin'])->count();
+        // dd($userCount, $adminCount);
         $notifications = auth()->user()->notifications->where('type', NewUserRegisteredNotification::class)->all();
         
         // dd($notifications);

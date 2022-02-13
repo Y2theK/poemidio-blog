@@ -12,6 +12,7 @@ class CategoryController extends Controller
     public function __construct(Category $category)
     {
         $this->middleware('permission:category-list', ['only' => ['index']]);
+        $this->middleware('permission:category-create', ['only' => ['store','create']]);
     }
     public function index()
     {
@@ -20,9 +21,6 @@ class CategoryController extends Controller
     }
     public function create(CategoryCreateRequest $request)
     {
-        if (auth()->user()->cannot('category-create')) {
-            abort(403, 'Access Denied');
-        }
         $category = new Category();
         $category->create($request->validated() + ['user_id' => auth()->id()]);
         return redirect()->route('categories.index')->with('info', 'Category Created Successfully..!');

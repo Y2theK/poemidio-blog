@@ -1,7 +1,7 @@
 @extends("layouts.app")
 @section('content')
 <div class="container">
-    <div class="h4">Your Profile</div>
+    <div class="h4 text-capitalize">{{ $user->name }}'s Profile</div>
     <div class="card">
         <div class="card-body">
             {{-- //image template --}}
@@ -17,13 +17,17 @@
                     <p class="text-light">Email - {{ $user->email }}</p>
                     <p class="text-light">Role - <span class="badge  badge-warning">{{
                             $user->getRoleNames()->first()}}</span> </p>
+
+                    @if ($user->id == auth()->id())
                     <a href="#" class="btn btn-danger btn-sm mt-3">Update Profile</a>
+
+                    @endif
                 </div>
             </div>
         </div>
     </div>
     <div class="mt-4 h5 d-flex justify-content-between align-items-center">
-        <p>Your Posts</p>
+        <p class="text-capitalize">{{ $user->name }}'s Posts</p>
         <p class="badge badge-warning">{{ $user->articles()->count() }}</p>
     </div>
     @forelse ($user->articles()->get() as $article)

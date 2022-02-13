@@ -51,8 +51,12 @@
                         <div class="form-group">
                             <label for="roles">
                                 <code>Roles</code></label>
+
+                            @dump($user->roles)
+
                             <select class="custom-select form-control-border border-width-2" id="roles" name="roles[]">
                                 @foreach ($roles as $role)
+
                                 <option value="{{ $role->id }}" {{ $user->roles->contains($role) ? 'selected' : '' }}>{{
                                     $role->name }}
                                 </option>

@@ -19,7 +19,6 @@ class CommentController extends Controller
             $request->validated() + ['user_id' => auth()->id()]
         );
         $article =  Article::where('id', $request->article_id)->first();
-        // dd($article->user, $article->title);
         if ($article->user_id != auth()->id()) {
             $created_comment_event_data = [
             'comment_user' => auth()->user(), // get author of the commented content
@@ -34,7 +33,7 @@ class CommentController extends Controller
     {
         $comment = Comment::find($id);
         if (! $this->authorize('owner-delete-comment', $comment)) {
-            abort('403', 'Unauthorized pr');
+            abort('403', 'Unauthorized');
         }
         
         $comment->delete();

@@ -108,7 +108,7 @@
 
 
                         <li class="nav-item">
-                            <a href="{{route('categories.index',auth()->id())}}" class="nav-link text-info">&
+                            <a href="{{route('categories.index')}}" class="nav-link text-info">&
                                 Categories</a>
 
                         </li>

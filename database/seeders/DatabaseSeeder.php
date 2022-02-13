@@ -23,19 +23,10 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class
         ]);
 
-        \App\Models\Article::factory(30)->create();
-        \App\Models\Comment::factory(50)->create();
+        // \App\Models\Article::factory(0)->create();
+        // \App\Models\Comment::factory(0)->create();
 
-        //seeding users
-        \App\Models\User::factory()->create([
-            'name' => "Y2theK",
-            'email' => "y2k@gmail.com"
-        ]);
-      
-        \App\Models\User::factory()->create([
-            'name' => "superuser",
-            'email' => "superuser@gmail.com"
-        ]);
+       
 
         //seeding category
         $categories = ['Modern','Other','Haiku','Limerick','Sonnet'];

@@ -33,7 +33,7 @@ Route::view('/', 'home');
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/articles/detail/{article}', [ArticleController::class, 'detail'])->name('articles.detail');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','verified'])->group(function () {
     Route::prefix('articles/')->as('articles.')->group(function () {
         Route::get('add', [ArticleController::class,'add'])->name('add');
         Route::post('create', [ArticleController::class,'create'])->name('create');
@@ -53,7 +53,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('profile/')->as('profile.')->group(function () {
         Route::get('/{user}', [ProfileController::class,'index'])->name('index');
         Route::get('/{user}/notifications', [ProfileController::class,'getCommentNotifications'])->name('notification');
-        Route::get('/notifications/{id}', [ProfileController::class,'markAsRead'])->name('notification.markAsRead');
+        Route::get('/{user}/notifications/{id}', [ProfileController::class,'markAsRead'])->name('notification.markAsRead');
     });
 });
 

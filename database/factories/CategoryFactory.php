@@ -23,7 +23,7 @@ class CategoryFactory extends Factory
     {
         return [
              'name' => ucwords($this->faker->word),
-              'user_id' => rand(1, 5)
+              'user_id' => rand(1, 4)
         ];
     }
 }

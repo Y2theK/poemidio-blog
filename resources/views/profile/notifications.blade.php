@@ -26,7 +26,7 @@
                     </div>
 
 
-                    <a href="{{ route('profile.notification.markAsRead', $notification->id) }}"
+                    <a href="{{ route('profile.notification.markAsRead', [auth()->user(),$notification->id]) }}"
                         class="float-right mark-as-read h5" data-id="{{ $notification->id }}">
                         &raquo;
                     </a>

@@ -9,20 +9,25 @@ use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
-  
+    public function __construct(Article $article)
+    {
+        $this->middleware('permission:article-list', ['only' => ['index','show']]);
+
+        $this->middleware('permission:article-create', ['only' => ['create','store']]);
+
+        $this->middleware('permission:article-edit', ['only' => ['edit','update']]);
+
+        $this->middleware('permission:article-delete', ['only' => ['destory']]);
+    }
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-   
+        * Display a listing of the resource.
+        *
+        * @return \Illuminate\Http\Response
+        */
     public function index()
     {
-        if (auth()->user()->cannot('article-list')) {
-            abort(403, 'u do not have access');
-        }
         $articles = Article::with('user')->latest()->get();
-        // dd($articles);
+      
         return view('admin.articles.index', compact('articles'));
     }
 
@@ -33,9 +38,6 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        if (auth()->user()->cannot('article-create')) {
-            abort(403, 'u do not have access');
-        }
         return abort(403, 'Working in Progress');
     }
 
@@ -47,9 +49,6 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        if (auth()->user()->cannot('article-create')) {
-            abort(403, 'u do not have access');
-        }
         return abort(403, 'Working in Progress');
     }
 
@@ -61,9 +60,6 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        if (auth()->user()->cannot('article-list')) {
-            abort(403, 'u do not have access');
-        }
         return abort(403, 'Working in Progress');
     }
 
@@ -75,9 +71,6 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        if (auth()->user()->cannot('article-edit')) {
-            abort(403, 'u do not have access');
-        }
         return abort(403, 'Working in Progress');
     }
 
@@ -90,9 +83,6 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (auth()->user()->cannot('article-edit')) {
-            abort(403, 'u do not have access');
-        }
         return abort(403, 'Working in Progress');
     }
 
@@ -104,9 +94,6 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        if (auth()->user()->cannot('article-delete')) {
-            abort(403, 'u do not have access');
-        }
         $article->destroy($article->id);
         return redirect()->route('admin.articles.index')->with('info', 'Article Deleted Successfully');
     }
