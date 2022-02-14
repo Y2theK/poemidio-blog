@@ -27,7 +27,7 @@
         </div> --}}
 
         <div class="">
-            <p class="text-light h5 poem-title">"{{$article->title}}"</p><br>
+            <p class="text-light h5 poem-title">{{$article->title}}</p><br>
 
             <pre>{{$article->description}}</pre>
 

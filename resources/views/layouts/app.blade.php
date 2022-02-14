@@ -169,14 +169,10 @@
         <main class="py-4" style="margin-bottom: 80px">
             @yield('content')
             <div class="container">
-                <div class="my-3 mb-3">
+                {{-- <div class="my-3 mb-3">
                     <a class="btn btn-dark " onclick="goBack()">BACK</a>
-                    {{-- {{Request::segment(1)}} --}}
-                    <?php
-                        // $posts = Http::get('https://jsonplaceholder.typicode.com/posts/');
-                        // dd($posts->json());
-                    ?>
-                </div>
+
+                </div> --}}
 
             </div>
 
