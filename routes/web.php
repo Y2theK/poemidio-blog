@@ -28,11 +28,12 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 
 Auth::routes();
 
+//visitor routes
 Route::view('/', 'home');
-
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/articles/detail/{article}', [ArticleController::class, 'detail'])->name('articles.detail');
 
+//user routes
 Route::middleware(['auth','verified'])->group(function () {
     Route::prefix('articles/')->as('articles.')->group(function () {
         Route::get('add', [ArticleController::class,'add'])->name('add');
@@ -57,12 +58,4 @@ Route::middleware(['auth','verified'])->group(function () {
     });
 });
 
-//admin routes
-Route::middleware('role:Admin|Super-Admin', 'auth')->prefix('admin/')->as('admin.')->group(function () {
-    Route::get('/', [DashboardController::class,'index'])->name('dashboard');
-    Route::resource('/roles', RoleController::class);
-    Route::resource('/permissions', PermissionController::class);
-    Route::resource('/users', UserController::class);
-    Route::resource('/articles', AdminArticleController::class);
-    Route::resource('/categories', AdminCategoryController::class);
-});
+//admin routes in routes/admin.php

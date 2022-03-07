@@ -55,7 +55,7 @@ class CommentCreatedNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'comment_user_name' => $this->data['comment_user']->name,
+            'comment_user_name' => auth()->user()->name,  //get the name of commenter
             'article_id' => $this->data['article']->id,
             'article_title' => $this->data['article']->title
         ];

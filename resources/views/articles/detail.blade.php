@@ -9,7 +9,14 @@
     <div class="card mb-2 px-2">
         <div class="card-bodyfitter mt-3">
             <h6 class="card-title poem-title">{{$article->title}}</h5>
-
+                <div class="mb-3">
+                    {{-- add autoplay attr in detail page --}}
+                    {{-- <audio controls>
+                        <source src="{{ asset('audios/ac.mp3') }}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio> --}}
+                </div>
+                {{-- <audio src="{{ storage_path('app/public/audios/taymyr-aungchaing.weba') }}">asdfas</audio> --}}
                 <span class=""> Category : <span class="badge badge-warning rounded-pill">{{$article->category->name??
                         'Unknown'}}</span></span>
                 <span class="ml-2">Posted By : <span class="badge badge-warning rounded-pill">{{$article->user->name ??

@@ -14,17 +14,15 @@ class CommentController extends Controller
 {
     public function create(CommentCreateRequest $request)
     {
-        $comment = new Comment;
-        $comment::create(
+        $comment = Comment::create(
             $request->validated() + ['user_id' => auth()->id()]
         );
         $article =  Article::where('id', $request->article_id)->first();
         if ($article->user_id != auth()->id()) {
+            //comment data
             $created_comment_event_data = [
-            'comment_user' => auth()->user(), // get author of the commented content
             'article' => $article
         ];
-        
             event(new CommentCreatedEvent($created_comment_event_data));
         }
         return redirect()->route('articles.detail', request()->article_id)->with('info', 'Comment Created Successfully..!');
@@ -32,10 +30,7 @@ class CommentController extends Controller
     public function delete($id)
     {
         $comment = Comment::find($id);
-        if (! $this->authorize('owner-delete-comment', $comment)) {
-            abort('403', 'Unauthorized');
-        }
-        
+        abort_if(! $this->authorize('owner-delete-comment', $comment), 403, 'Unauthorized');
         $comment->delete();
         return redirect()->back();
     }
