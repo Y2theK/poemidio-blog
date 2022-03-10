@@ -14,13 +14,9 @@ class DashboardController extends Controller
     {
         $articleCount = Article::count();
         $userCount = User::role(['User', 'Super-User'])->count();
-
         $adminCount = User::role(['Admin', 'Super-Admin'])->count();
-        // dd($userCount, $adminCount);
         $notifications = auth()->user()->notifications->where('type', NewUserRegisteredNotification::class)->all();
-        
-        // dd($notifications);
-        // dd($adminCount);
+       
         return view('admin.dashboard', compact('articleCount', 'userCount', 'adminCount', 'notifications'));
     }
 }

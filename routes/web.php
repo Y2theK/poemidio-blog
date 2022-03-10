@@ -1,18 +1,14 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
-// use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\PermissionController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
-use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Auth\GithubController;
+use App\Http\Controllers\Auth\FacebookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,12 +23,19 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 
 
 Auth::routes();
+//facebook oauth
+Route::get('/auth/facebook/redirect', [FacebookController::class,'handleFacebookRedirect'])->name('auth.facebook.redirect');
+Route::get('/auth/facebook/callback', [FacebookController::class,'handleFacebookCallback'])->name('auth.facebook.callback');
 
+//GITHUB oauth
+Route::get('/auth/github/redirect', [GithubController::class,'handleGithubRedirect'])->name('auth.github.redirect');
+Route::get('/auth/github/callback', [GithubController::class,'handleGithubCallback'])->name('auth.github.callback');
+//visitor routes
 Route::view('/', 'home');
-
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/articles/detail/{article}', [ArticleController::class, 'detail'])->name('articles.detail');
 
+//user routes
 Route::middleware(['auth','verified'])->group(function () {
     Route::prefix('articles/')->as('articles.')->group(function () {
         Route::get('add', [ArticleController::class,'add'])->name('add');
@@ -57,12 +60,4 @@ Route::middleware(['auth','verified'])->group(function () {
     });
 });
 
-//admin routes
-Route::middleware('role:Admin|Super-Admin', 'auth')->prefix('admin/')->as('admin.')->group(function () {
-    Route::get('/', [DashboardController::class,'index'])->name('dashboard');
-    Route::resource('/roles', RoleController::class);
-    Route::resource('/permissions', PermissionController::class);
-    Route::resource('/users', UserController::class);
-    Route::resource('/articles', AdminArticleController::class);
-    Route::resource('/categories', AdminCategoryController::class);
-});
+//admin routes in routes/admin.php

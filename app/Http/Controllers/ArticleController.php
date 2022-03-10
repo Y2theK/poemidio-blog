@@ -27,31 +27,23 @@ class ArticleController extends Controller
     
     public function index()
     {
-        $data = Article::with(['category','user'])->latest()->get();
+        $articles = Article::with(['category','user'])->latest()->get();
         
-        return view('articles.index', [
-            "articles" => $data,
-           
-        ]);
+        return view('articles.index', compact('articles'));
     }
     public function detail(Article $article)
     {
         // $data = Article::find($id);
-        return view('articles.detail', [
-            "article" => $article
-        ]);
+        return view('articles.detail', compact('article'));
     }
     public function add()
     {
         $categories = Category::all();
-        return view('articles.add', [
-            'categories' => $categories
-        ]);
+        return view('articles.add', compact('categories'));
     }
     public function create(ArticleCreateRequest $request)
     {
-        $article = new Article;
-        $article::create(
+        Article::create(
             $request->validated() + ['user_id' => auth()->id()]
         );
         return redirect()->route('articles.index')->with('info', 'Article Created Successfully..!');
@@ -61,13 +53,8 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
         $categories = Category::all();
-        if (! FacadesGate::allows('owner-edit-delete-post', $article)) {
-            abort(403, 'Unauthorized');
-        }
-        return view('articles.edit', [
-            "article" => $article,
-            "categories" => $categories
-        ]);
+        abort_if(! FacadesGate::allows('owner-edit-delete-post', $article), 403, 'Unauthorized');
+        return view('articles.edit', compact('article', 'categories'));
     }
     public function update(Article $article, ArticleUpdateRequest $request)
     {
@@ -76,9 +63,7 @@ class ArticleController extends Controller
     }
     public function delete(Article $article)
     {
-        if (FacadesGate::denies('owner-edit-delete-post', $article)) {
-            abort(403, 'Unauthorized');
-        }
+        abort_if(FacadesGate::denies('owner-edit-delete-post', $article), 403, 'Unauthorized');
         $article->delete();
         return redirect()->route('articles.index')->with('info', 'Article Deleted Successfully..!');
     }

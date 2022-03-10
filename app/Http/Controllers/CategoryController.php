@@ -21,15 +21,13 @@ class CategoryController extends Controller
     }
     public function create(CategoryCreateRequest $request)
     {
-        $category = new Category();
-        $category->create($request->validated() + ['user_id' => auth()->id()]);
+        Category::create($request->validated() + ['user_id' => auth()->id()]);
         return redirect()->route('categories.index')->with('info', 'Category Created Successfully..!');
     }
     public function delete(Category $category)
     {
-        if (Gate::denies('owner-delete-category', $category)) {
-            abort('403', 'Unauthorized');
-        }
+        abort_if(Gate::denies('owner-delete-category', $category), 403, 'Unauthorized');
+           
         $category->delete();
         return redirect()->route('categories.index')->with('info', 'Category Deleted Successfully..!');
     }

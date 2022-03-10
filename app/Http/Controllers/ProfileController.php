@@ -15,22 +15,15 @@ class ProfileController extends Controller
     }
     public function getCommentNotifications(User $user)
     {
-        if (auth()->user() != $user) {
-            abort(403);
-        }
+        abort_if(auth()->user() != $user, 403, 'Unauthorized');
         $notifications = $user->notifications->where('type', CommentCreatedNotification::class)->all();
-        
-        
-        // dd($notifications->data);
         return view('profile.notifications', compact('notifications'));
     }
     public function markAsRead($userId, $notiId)
     {
         $notification = auth()->user()->notifications->find($notiId);
-        if ($notification) {
-            $notification->markAsRead();
-            return redirect()->route('articles.detail', $notification->data['article_id']);
-        }
-        abort(404);
+        abort_if(!$notification, 404);
+        $notification->markAsRead();
+        return redirect()->route('articles.detail', $notification->data['article_id']);
     }
 }

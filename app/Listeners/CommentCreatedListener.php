@@ -30,7 +30,7 @@ class CommentCreatedListener
     public function handle(CommentCreatedEvent $event)
     {
         $article_owner = $event->data['article']->user;
-        // dd($event->data);
+        // sending notification to article owner
         $article_owner->notify(new CommentCreatedNotification($event->data));
     }
 }
