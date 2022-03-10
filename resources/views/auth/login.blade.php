@@ -17,7 +17,7 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                    name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    name="email" value="{{ old('email') }}" autocomplete="email" autofocus>
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -34,7 +34,7 @@
                             <div class="col-md-6">
                                 <input id="password" type="password"
                                     class="form-control @error('password') is-invalid @enderror" name="password"
-                                    required autocomplete="current-password">
+                                    autocomplete="current-password">
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -70,10 +70,26 @@
                                 @endif
                             </div>
                         </div>
-                    </form>
+
                 </div>
+                <div class="form-group row">
+                    <div class="offset-md-5">
+                        <a href="{{ route('auth.facebook.redirect') }}" class="btn btn-info">Login With Facebook</a>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-md-5">
+                        <a href="/auth/github/redirect" class="btn btn-success">Login With Github</a>
+                    </div>
+                </div>
+
+                </form>
+
+
+
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection
